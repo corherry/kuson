@@ -8,10 +8,11 @@ import org.apache.struts2.components.Else;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Preparable;
 import com.zhbit.admin.entity.TAdminInfo;
 import com.zhbit.admin.service.AdminService;
 
-public class ResetPassword extends ActionSupport {
+public class ResetPassword extends ActionSupport implements Preparable{
 	private TAdminInfo admin;
 	@Resource
 	private AdminService adminService;
@@ -21,11 +22,14 @@ public class ResetPassword extends ActionSupport {
 		TAdminInfo adminInfo = (TAdminInfo) ActionContext.getContext().getSession().get("admin");
 		adminInfo.setAdminPassword(newPassword);
 		adminService.update(adminInfo);
+		System.out.println(adminInfo.getAdminName());
 		ActionContext.getContext().getSession().put("admin", adminInfo);
 		return SUCCESS;
 	}
 	public void validateResetPassword(){
 		TAdminInfo adminInfo = (TAdminInfo) ActionContext.getContext().getSession().get("admin");
+		System.out.println(adminInfo.getAdminPassword());
+		System.out.println(admin.getAdminPassword());
 		if(admin.getAdminPassword().equals(adminInfo.getAdminPassword()) == false){
 			this.addFieldError("admin.adminPassword", "密码不正确");
 		}else if(newPassword.equals(rePassword) == false){
@@ -33,12 +37,33 @@ public class ResetPassword extends ActionSupport {
 		}else if(newPassword.equals(admin.getAdminPassword()) == true){
 			this.addFieldError("rePassword", "新密码不能与原密码相同");
 		}else if(newPassword.length() < 5 || newPassword.length() > 12){
-			this.addFieldError("rePassword", "新密码长度必须在5-12之间");
+			this.addFieldError("rePassword", "新密码长度必须为5~12位");
 		}else{
 			String regex = "^[0-9a-zA-Z]{5,12}";
 			if(Pattern.matches(regex, newPassword) == false){
 				this.addFieldError("rePassword", "密码只能包含字母和数字");
 			}
 		}
+	}
+	public void prepare() throws Exception {
+        clearErrorsAndMessages() ;
+    }
+	public TAdminInfo getAdmin() {
+		return admin;
+	}
+	public void setAdmin(TAdminInfo admin) {
+		this.admin = admin;
+	}
+	public String getNewPassword() {
+		return newPassword;
+	}
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+	public String getRePassword() {
+		return rePassword;
+	}
+	public void setRePassword(String rePassword) {
+		this.rePassword = rePassword;
 	}
 }

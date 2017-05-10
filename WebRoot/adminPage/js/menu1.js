@@ -1,7 +1,7 @@
 // JavaScript Document
 
 
-//导航菜单
+//�����˵�
 function navList(id) {
     var $obj = $("#nav_dot"), $item = $("#J_nav_" + id);
     $item.addClass("on").parent().removeClass("none").parent().addClass("selected");
@@ -34,8 +34,6 @@ function navList(id) {
         }
     });
 }
-
-/****表格隔行高亮显示*****/
 window.onload=function(){
 	oTable=document.getElementById("tab");//找表格
 	aTr=document.getElementsByTagName("tr");//找所有的行
@@ -43,7 +41,8 @@ window.onload=function(){
 		if(i%2==0){
 			aTr[i].style.background="#fff";	
 		}else{
-			aTr[i].style.background="#ccc";	
+			aTr[i].style.background="#fff";	
 		};
 	};
 };
+

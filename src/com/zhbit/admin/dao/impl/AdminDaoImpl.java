@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +40,7 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public List<TAdminInfo> queryByGoodsAdminInfo() {
-		String hql = "from TadminInfo where adminAuthority = 0";
+		String hql = "from TAdminInfo where adminAuthority = 1";
 		List<TAdminInfo> list = sessionFactory.getCurrentSession().createQuery(hql).list();
 		return list;
 	}
@@ -48,7 +49,7 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public List<TAdminInfo> queryByOrderAdminInfo() {
-		String hql = "from TadminInfo where adminAuthority = 1";
+		String hql = "from TAdminInfo where adminAuthority = 2";
 		List<TAdminInfo> list = sessionFactory.getCurrentSession().createQuery(hql).list();
 		return list;
 	}
@@ -63,4 +64,34 @@ public class AdminDaoImpl implements AdminDao {
 				.uniqueResult();
 		return adminInfo;
 	}
+
+	@Override
+	public int getAdminCount(int adminAuthority) {
+		String hql = "from TAdminInfo where adminAuthority = :adminAuthority";
+		List<TAdminInfo> list = sessionFactory.getCurrentSession().createQuery(hql).
+				setInteger("adminAuthority", adminAuthority).list();
+		System.out.println(list.size());
+		return list.size();
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED)
+	public List<TAdminInfo> getAdminPage(int pageSize, int pageIndex, int adminAuthority) {
+		if(pageIndex - 1 < 0)
+			return null;
+		String hql = "from TAdminInfo where adminAuthority = :adminAuthority";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql).setInteger("adminAuthority", adminAuthority);
+		query.setFirstResult((pageIndex - 1) * pageSize);
+		query.setMaxResults(pageSize);
+		List<TAdminInfo> adminList = query.list();
+		System.out.println(adminList.size());
+		return adminList;
+	}
+
+	@Override
+	public void deleteAdminById(int id) {
+		TAdminInfo adminInfo = (TAdminInfo) sessionFactory.getCurrentSession().get(TAdminInfo.class, id);
+		sessionFactory.getCurrentSession().delete(adminInfo);
+	}
+	
 }

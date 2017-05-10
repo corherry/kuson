@@ -10,5 +10,8 @@
 			<result name="input">/adminPage/page/resetPassword.jsp</result>
 			<result name="success">/adminPage/index.jsp</result>
 		</action>
+		<action name="admin_show" class="showAdmin">
+			<result name="success">/adminPage/page/showAdmin.jsp</result>
+		</action>
 	</package>
 </struts>    

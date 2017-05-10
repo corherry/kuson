@@ -49,4 +49,21 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.checkLogin(admin);
 	}
 
+	@Override
+	public int getAdminTotalPages(int pageSize, int adminAuthority) {
+		int count = adminDao.getAdminCount(adminAuthority);	//×Ü¼ÇÂ¼Êý
+    	int totalpages = 0; 
+    	totalpages =(count % pageSize ==0) ? (count / pageSize):(count / pageSize + 1);
+    	return totalpages;
+	}
+
+	@Override
+	public List<TAdminInfo> adminPageList(int pageSize, int pageIndex, int adminAuthority) {
+		return adminDao.getAdminPage(pageSize, pageIndex, adminAuthority);
+	}
+
+	@Override
+	public void deleteAdminById(int id) {
+		adminDao.deleteAdminById(id);
+	}
 }

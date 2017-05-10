@@ -2,11 +2,14 @@ package com.zhbit.goods.dao.impl;
 
 import java.util.List;
 import javax.annotation.Resource;
+
+import org.apache.taglibs.standard.tag.common.core.SetSupport;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.zhbit.goods.dao.GoodsDao;
 import com.zhbit.goods.entity.TGoods;
+import com.zhbit.goods.entity.TType;
 
 @Transactional
 public class GoodsDaoImpl implements GoodsDao{
@@ -43,5 +46,17 @@ public class GoodsDaoImpl implements GoodsDao{
 		else
 			return goodsList;
 	}
-	
+
+	@Override
+	public void deleteFirstClassification(String type) {
+		String hql = "from TType where typeOne = :type";
+		sessionFactory.getCurrentSession().createQuery(hql).setString("type", type).executeUpdate();
+	}
+	public void deleteSecondClassification(String type, String secondType) {
+		String hql = "from TType where typeOne = :type and typeTwo = :secondType";
+		sessionFactory.getCurrentSession().createQuery(hql)
+		.setString("type", type)
+		.setString("secondType", secondType)
+		.executeUpdate();
+	}
 }

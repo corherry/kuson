@@ -28,5 +28,6 @@
 	<bean id="adminService" class="com.zhbit.admin.service.impl.AdminServiceImpl"></bean>
 	<bean id="adminDao" class="com.zhbit.admin.dao.impl.AdminDaoImpl"></bean>
 	
-	<bean id="adminResetPwd" class="com.zhbit.admin.action.ResetPassword"></bean>
+	<bean id="adminResetPwd" class="com.zhbit.admin.action.ResetPassword" scope="prototype"></bean>
+	<bean id="showAdmin" class="com.zhbit.admin.action.AdminAction"></bean>
 </beans>
