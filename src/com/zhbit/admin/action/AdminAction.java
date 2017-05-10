@@ -18,13 +18,13 @@ public class AdminAction extends ActionSupport{
 	@Resource
 	private AdminService adminService;
 	private List<TAdminInfo> adminList;
-	public String getAdmin() throws Exception{
+	
+	//分页
+	public String getAdmin() throws Exception{ 
 		HttpServletRequest request= ServletActionContext.getRequest();
 		String authority = request.getParameter("adminAuthority");
 		adminAuthority = Integer.parseInt(authority);
 		int totalPages = adminService.getAdminTotalPages(pageSize, adminAuthority); //总页数
-		System.out.println("-----------------------pagesize:" + pageSize);
-		System.out.println("-----------------------total:" + totalPages);
 		String currentPage=request.getParameter("pageIndex");	//确定当前页
 		if(currentPage == null){
 			currentPage = "1";
@@ -35,8 +35,7 @@ public class AdminAction extends ActionSupport{
 		}else if(pageIndex > totalPages){
 			pageIndex = totalPages;
 		}
-		System.out.println("-----------------------xxxxxxxxx" +pageIndex);
-		if(totalPages == 0)
+		if(totalPages == 0) //无记录，页数为0
 			pageIndex = 0;	
 		adminList = adminService.adminPageList(pageSize, pageIndex, adminAuthority);
 		request.setAttribute("pageIndex", pageIndex);
@@ -45,6 +44,8 @@ public class AdminAction extends ActionSupport{
 		request.setAttribute("list", adminList);
 		return SUCCESS;
 	}
+	
+	//删除管理员
 	public String delete() throws Exception{
 		HttpServletRequest request= ServletActionContext.getRequest();
 		String id = request.getParameter("adminId");

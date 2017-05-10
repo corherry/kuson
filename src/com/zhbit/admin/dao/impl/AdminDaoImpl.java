@@ -53,7 +53,8 @@ public class AdminDaoImpl implements AdminDao {
 		List<TAdminInfo> list = sessionFactory.getCurrentSession().createQuery(hql).list();
 		return list;
 	}
-
+	
+	//查询登陆用户是否存在
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public TAdminInfo checkLogin(TAdminInfo admin) {
@@ -65,6 +66,7 @@ public class AdminDaoImpl implements AdminDao {
 		return adminInfo;
 	}
 
+	//按权限获取记录数
 	@Override
 	public int getAdminCount(int adminAuthority) {
 		String hql = "from TAdminInfo where adminAuthority = :adminAuthority";
@@ -74,6 +76,7 @@ public class AdminDaoImpl implements AdminDao {
 		return list.size();
 	}
 
+	//按权限获取当前显示管理员
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public List<TAdminInfo> getAdminPage(int pageSize, int pageIndex, int adminAuthority) {
@@ -84,10 +87,10 @@ public class AdminDaoImpl implements AdminDao {
 		query.setFirstResult((pageIndex - 1) * pageSize);
 		query.setMaxResults(pageSize);
 		List<TAdminInfo> adminList = query.list();
-		System.out.println(adminList.size());
 		return adminList;
 	}
 
+	//按id删除管理员
 	@Override
 	public void deleteAdminById(int id) {
 		TAdminInfo adminInfo = (TAdminInfo) sessionFactory.getCurrentSession().get(TAdminInfo.class, id);
