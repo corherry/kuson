@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import com.zhbit.admin.dao.AdminDao;
 import com.zhbit.admin.entity.TAdminInfo;
 import com.zhbit.admin.service.AdminService;
+import com.zhbit.util.PageBean;
 
 public class AdminServiceImpl implements AdminService {
 	@Resource
@@ -17,24 +18,10 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void delete(TAdminInfo admin) {
-		adminDao.delete(admin);
-	}
-
-	@Override
 	public void update(TAdminInfo admin) {
 		adminDao.update(admin);
 	}
 
-	@Override
-	public List<TAdminInfo> queryByGoodsAdminInfo() {
-		return adminDao.queryByGoodsAdminInfo();
-	}
-
-	@Override
-	public List<TAdminInfo> queryByOrderAdminInfo() {
-		return adminDao.queryByOrderAdminInfo();
-	}
 
 	public AdminDao getAdminDao() {
 		return adminDao;
@@ -50,20 +37,41 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public int getAdminTotalPages(int pageSize, int adminAuthority) {
-		int count = adminDao.getAdminCount(adminAuthority);	//×Ü¼ÇÂ¼Êý
-    	int totalpages = 0; 
-    	totalpages =(count % pageSize ==0) ? (count / pageSize):(count / pageSize + 1);
-    	return totalpages;
-	}
-
-	@Override
-	public List<TAdminInfo> adminPageList(int pageSize, int pageIndex, int adminAuthority) {
-		return adminDao.getAdminPage(pageSize, pageIndex, adminAuthority);
-	}
-
-	@Override
-	public void deleteAdminById(int id) {
+	public void deleteAdminById(Integer id) {
 		adminDao.deleteAdminById(id);
+	}
+
+	@Override
+	public PageBean<TAdminInfo> findAdminByAuthority(Integer pageIndex, Integer adminAuthority) {
+		PageBean<TAdminInfo> pageBean = new PageBean<TAdminInfo>();
+		int limit = 10;
+		int totalCount = adminDao.findCount(adminAuthority);
+		int totalPage = 0;
+		if (totalCount % limit == 0) {
+			totalPage = totalCount / limit;
+		} else {
+			totalPage = totalCount / limit + 1;
+		}
+		if(pageIndex == null || pageIndex < 1)
+			pageIndex = 1;
+		if(totalCount == 0)
+			pageIndex = 0;
+		if(pageIndex > totalPage)
+			pageIndex = totalPage;
+		pageBean.setLimit(limit);
+		pageBean.setTotalCount(totalCount);
+		pageBean.setPageIndex(pageIndex);
+		pageBean.setTotalPage(totalPage);
+		int begin = (pageIndex - 1) * limit;
+		List<TAdminInfo> adminList = null;
+		if(begin >= 0)
+			adminList = adminDao.findAdminByAuthority(begin, limit, adminAuthority);
+		pageBean.setList(adminList);
+		return pageBean;
+	}
+
+	@Override
+	public TAdminInfo findByAdminId(Integer adminId) {
+		return adminDao.findByAdminId(adminId);
 	}
 }

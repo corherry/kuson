@@ -1,7 +1,9 @@
-package com.zhbit.goods.entity;
+package com.zhbit.category.entity;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import com.zhbit.goods.entity.TGoods;
 
 /**
  * TType entity. @author MyEclipse Persistence Tools
@@ -70,7 +72,6 @@ public class TType implements java.io.Serializable {
 	public void setProducts(Set<TGoods> products) {
 		this.products = products;
 	}
-
 
 
 }

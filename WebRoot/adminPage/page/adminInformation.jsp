@@ -32,9 +32,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li>欢迎您：</li>
 				<li><a href="adminPage/page/adminInformation.jsp"
 					target="adminInfo"><s:property value="#session.admin.adminName"></s:property></a></li>
-				<li>| <a href="adminPage/index.jsp" target="adminInfo">&nbsp;我的主页</a></li>
-				<li>| <a href="adminPage/page/resetPassword.jsp"
-					target="adminInfo">&nbsp;修改密码</a></li>
+				<li>| <a href="adminPage/index.jsp">&nbsp;我的主页</a></li>
+				<li>| <a href="adminPage/page/resetPassword.jsp">&nbsp;修改密码</a></li>
 				<li>| <a href="adminPage/page/login.jsp">&nbsp;退出</a></li>
 			</ul>
 		</div>
@@ -46,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<h4 class="M3">
 						<span></span>个人设置
 					</h4>
-					<div class="list-item none">
+					<div class="list-item none"  style="display:block;">
 						<a href="adminPage/page/adminInformation.jsp">基本信息</a> <a
 							href="adminPage/page/resetPassword.jsp">修改密码</a>
 					</div>
@@ -57,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span></span>分类管理
 						</h4>
 						<div class="list-item none">
-							<a href="#">分类列表</a>
+							<a href="category!showFirstCategory.action">分类列表</a>
 						</div>
 					</li>
 					<li>
@@ -65,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span></span>商品管理
 						</h4>
 						<div class="list-item none">
-							<a href="#">商品信息</a>
+							<a href="goods_show.action">商品信息</a>
 						</div>
 					</li>
 				</s:if>
@@ -97,7 +96,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span></span>权限管理
 						</h4>
 						<div class="list-item none">
-							<a href="#">订单管理员</a> <a href="#">商品管理员</a> <a href="#">订单配送员</a>
+							<a href="admin_show!findAdminByAuthority.action?pageIndex=1&adminAuthority=2">订单管理员</a> 
+							<a href="admin_show!findAdminByAuthority.action?pageIndex=1&adminAuthority=1">商品管理员</a> 
+							<a href="admin_show!findAdminByAuthority.action?pageIndex=1&adminAuthority=3">订单配送员</a>
 						</div>
 					</li>
 				</s:if>

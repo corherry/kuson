@@ -22,14 +22,11 @@ public class ResetPassword extends ActionSupport implements Preparable{
 		TAdminInfo adminInfo = (TAdminInfo) ActionContext.getContext().getSession().get("admin");
 		adminInfo.setAdminPassword(newPassword);
 		adminService.update(adminInfo);
-		System.out.println(adminInfo.getAdminName());
 		ActionContext.getContext().getSession().put("admin", adminInfo);
 		return SUCCESS;
 	}
 	public void validateResetPassword(){
 		TAdminInfo adminInfo = (TAdminInfo) ActionContext.getContext().getSession().get("admin");
-		System.out.println(adminInfo.getAdminPassword());
-		System.out.println(admin.getAdminPassword());
 		if(admin.getAdminPassword().equals(adminInfo.getAdminPassword()) == false){
 			this.addFieldError("admin.adminPassword", "ÃÜÂë²»ÕýÈ·");
 		}else if(newPassword.equals(rePassword) == false){

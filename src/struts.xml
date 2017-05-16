@@ -11,7 +11,27 @@
 			<result name="success">/adminPage/index.jsp</result>
 		</action>
 		<action name="admin_show" class="showAdmin">
+		    <result name="input">/adminPage/page/updateAdmin.jsp</result>
+			<result name="findAdmin">/adminPage/page/showAdmin.jsp</result>
 			<result name="success">/adminPage/page/showAdmin.jsp</result>
+			<result name="find">/adminPage/page/updateAdmin.jsp</result>
+		</action>
+		<action name="admin_add" class="addAdmin" method="addAdmin">
+			<result name="input">/adminPage/page/addAdmin.jsp</result>
+			<result name="findAdmin">/adminPage/page/showAdmin.jsp</result>
+		</action>
+		<action name="category" class="Category">
+			<result name="showSecondType">/adminPage/page/secondClassification.jsp</result>
+			<result name="showFirstType">/adminPage/page/classification.jsp</result>
+			<result name="set">/adminPage/page/updateFirstCategory.jsp</result>
+			<result name="setCategory">/adminPage/page/updateSecondCategory.jsp</result>
+		</action>
+		<action name="secondCategory" class="SecondCategory" method="setFirstCategory">
+			<result name="set">/adminPage/page/addSecondType.jsp</result>
+		</action>
+		<action name="goods_show" class="goodsAction">
+			<param name="savePath">/adminPage/images</param>
+			<result name="success">/adminPage/page/showGoods.jsp</result>
 		</action>
 	</package>
 </struts>    

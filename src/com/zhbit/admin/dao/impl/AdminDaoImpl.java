@@ -6,53 +6,33 @@ import javax.annotation.Resource;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zhbit.admin.dao.AdminDao;
 import com.zhbit.admin.entity.TAdminInfo;
+import com.zhbit.util.PageHibernateCallBack;
 
 @Transactional
-public class AdminDaoImpl implements AdminDao {
-	
+public class AdminDaoImpl extends HibernateDaoSupport implements AdminDao{
+
 	@Resource
 	private SessionFactory sessionFactory;
-	
+
 	//添加管理员
 	@Override
 	public void add(TAdminInfo admin) {
 		sessionFactory.getCurrentSession().persist(admin);
 	}
 
-	//删除管理员
-	@Override
-	public void delete(TAdminInfo admin) {
-		sessionFactory.getCurrentSession().delete(admin);
-	}
-	
 	//修改管理员信息
 	@Override
 	public void update(TAdminInfo admin) {
 		sessionFactory.getCurrentSession().merge(admin);
 	}
 
-	//查询商品管理员信息
-	@Override
-	@Transactional(propagation=Propagation.NOT_SUPPORTED)
-	public List<TAdminInfo> queryByGoodsAdminInfo() {
-		String hql = "from TAdminInfo where adminAuthority = 1";
-		List<TAdminInfo> list = sessionFactory.getCurrentSession().createQuery(hql).list();
-		return list;
-	}
-
-	//查询订单管理员信息
-	@Override
-	@Transactional(propagation=Propagation.NOT_SUPPORTED)
-	public List<TAdminInfo> queryByOrderAdminInfo() {
-		String hql = "from TAdminInfo where adminAuthority = 2";
-		List<TAdminInfo> list = sessionFactory.getCurrentSession().createQuery(hql).list();
-		return list;
-	}
 	
 	//查询登陆用户是否存在
 	@Override
@@ -68,33 +48,35 @@ public class AdminDaoImpl implements AdminDao {
 
 	//按权限获取记录数
 	@Override
-	public int getAdminCount(int adminAuthority) {
+	public int findCount(int adminAuthority) {
 		String hql = "from TAdminInfo where adminAuthority = :adminAuthority";
 		List<TAdminInfo> list = sessionFactory.getCurrentSession().createQuery(hql).
 				setInteger("adminAuthority", adminAuthority).list();
-		System.out.println(list.size());
 		return list.size();
-	}
-
-	//按权限获取当前显示管理员
-	@Override
-	@Transactional(propagation=Propagation.NOT_SUPPORTED)
-	public List<TAdminInfo> getAdminPage(int pageSize, int pageIndex, int adminAuthority) {
-		if(pageIndex - 1 < 0)
-			return null;
-		String hql = "from TAdminInfo where adminAuthority = :adminAuthority";
-		Query query = sessionFactory.getCurrentSession().createQuery(hql).setInteger("adminAuthority", adminAuthority);
-		query.setFirstResult((pageIndex - 1) * pageSize);
-		query.setMaxResults(pageSize);
-		List<TAdminInfo> adminList = query.list();
-		return adminList;
 	}
 
 	//按id删除管理员
 	@Override
-	public void deleteAdminById(int id) {
-		TAdminInfo adminInfo = (TAdminInfo) sessionFactory.getCurrentSession().get(TAdminInfo.class, id);
+	public void deleteAdminById(Integer id) {
+		TAdminInfo adminInfo = findByAdminId(id);
 		sessionFactory.getCurrentSession().delete(adminInfo);
+	}
+
+	@Override
+	public List<TAdminInfo> findAdminByAuthority(int begin, int limit, int adminAuthority) {
+		String hql = "from TAdminInfo where adminAuthority = ?";
+		List<TAdminInfo> adminList = this.getHibernateTemplate().execute(new PageHibernateCallBack<TAdminInfo>(hql, new Object[]{adminAuthority}, begin, limit));
+		if(adminList != null && adminList.size() > 0)
+			return adminList;
+		return null;
+	}
+
+	@Override
+	public TAdminInfo findByAdminId(Integer adminId) {
+		TAdminInfo adminInfo = (TAdminInfo) sessionFactory.getCurrentSession().get(TAdminInfo.class, adminId);
+		if(adminInfo != null)
+			return adminInfo;
+		return null;
 	}
 	
 }

@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span></span>分类管理
 					</h4>
 					<div class="list-item none">
-						<a href="adminPage/page/classification.jsp">分类列表</a>
+						<a href="category!showFirstCategory.action">分类列表</a>
 					</div>
 				</li>
 				<li>
@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span></span>商品管理
 					</h4>
 					<div class="list-item none">
-						<a href="#">商品信息</a>
+						<a href="goods_show.action">商品信息</a>
 					</div>
 				</li>
 				</s:if>
@@ -94,9 +94,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span></span>权限管理
 					</h4>
 					<div class="list-item none">
-						<a href="admin_show!getAdmin.action?adminAuthority=2">订单管理员</a> 
-						<a href="admin_show!getAdmin.action?adminAuthority=1">商品管理员</a> 
-						<a href="admin_show!getAdmin.action?adminAuthority=3">订单配送员</a>
+						<a href="admin_show!findAdminByAuthority.action?pageIndex=1&adminAuthority=2">订单管理员</a> 
+						<a href="admin_show!findAdminByAuthority.action?pageIndex=1&adminAuthority=1">商品管理员</a> 
+						<a href="admin_show!findAdminByAuthority.action?pageIndex=1&adminAuthority=3">订单配送员</a>
 					</div>
 				</li>
 				</s:if>
@@ -112,9 +112,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li><a href="#">最新公告</a></li>
 				</ul>
 			</div>
-			<div class="main">
-				<iframe name="adminInfo" frameborder="0" scrolling="auto"></iframe>
-			</div>
+			<div class="main" align="center" >
+			   <div style="margin:50px;">
+			      <h1>酷森旗舰店</h1><br><br>
+				  <img alt="酷森旗舰店" src="adminPage/images/logo-kuson02.gif" width="400px">	  
+			   </div>	
+			</div>	
+			
 		</div>
 	</div>
 	<div class="bottom"></div>

@@ -8,7 +8,7 @@
     <class name="com.zhbit.goods.entity.TGoods" table="t_goods" schema="dbo" catalog="KusonDb">
         <id name="goodsId" type="java.lang.Integer">
             <column name="goodsId" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="goodsNo" type="java.lang.String">
             <column name="goodsNo" not-null="true" />
@@ -35,7 +35,7 @@
             <column name="goodsPrice" precision="53" scale="0" not-null="true" />
         </property>
         
-        <many-to-one name="TType" class="com.zhbit.goods.entity.TType" fetch="select" cascade="save-update">
+        <many-to-one name="type" class="com.zhbit.category.entity.TType" lazy="false" fetch="select" cascade="save-update">
             <column name="typeId" not-null="true" />
         </many-to-one>
         <set name="orders" table="t_orderDetail" cascade="save-update">

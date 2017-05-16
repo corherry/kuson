@@ -8,7 +8,6 @@ import org.hibernate.SessionFactory;
 
 import com.zhbit.goods.dao.GoodsDao;
 import com.zhbit.goods.entity.TGoods;
-import com.zhbit.goods.entity.TType;
 import com.zhbit.goods.service.GoodsService;
 
 public class GoodsServiceImpl implements GoodsService {
@@ -43,11 +42,10 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public void deleteFirstClassification(String type) {
-		goodsDao.deleteFirstClassification(type);
+	public List<TGoods> queryAllGoods() {
+		return goodsDao.queryAllGoods();
 	}
-	public void deleteSecondClassification(String type, String secondType) {
-		goodsDao.deleteSecondClassification(type, secondType);
-	}
+
+
 
 }

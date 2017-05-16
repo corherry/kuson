@@ -3,6 +3,7 @@ package com.zhbit.goods.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.zhbit.category.entity.TType;
 import com.zhbit.order.entity.TOrder;
 
 /**
@@ -22,7 +23,7 @@ public class TGoods implements java.io.Serializable {
 	private String goodsDescription;
 	private String goodsPicUrl;
 	private Double goodsPrice;
-	private TType TType;
+	private TType type;
 	private Set<TOrder> orders = new HashSet<TOrder>();
 	private Set<TEvaluation> TEvaluations = new HashSet<TEvaluation>();
 
@@ -33,10 +34,10 @@ public class TGoods implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public TGoods(Integer goodsId, TType TType, String goodsNo, String goodsTitle, String goodsSize, String goodsColor,
+	public TGoods(Integer goodsId, TType type, String goodsNo, String goodsTitle, String goodsSize, String goodsColor,
 			Double goodsPrice) {
 		this.goodsId = goodsId;
-		this.TType = TType;
+		this.type = type;
 		this.goodsNo = goodsNo;
 		this.goodsTitle = goodsTitle;
 		this.goodsSize = goodsSize;
@@ -49,7 +50,7 @@ public class TGoods implements java.io.Serializable {
 			Integer goodsAmount, String goodsDescription, String goodsPicUrl, Double goodsPrice, Set orders,
 			Set TEvaluations) {
 		this.goodsId = goodsId;
-		this.TType = TType;
+		this.type = TType;
 		this.goodsNo = goodsNo;
 		this.goodsTitle = goodsTitle;
 		this.goodsSize = goodsSize;
@@ -73,11 +74,11 @@ public class TGoods implements java.io.Serializable {
 	}
 
 	public TType getTType() {
-		return this.TType;
+		return this.type;
 	}
 
-	public void setTType(TType TType) {
-		this.TType = TType;
+	public void setTType(TType type) {
+		this.type = type;
 	}
 
 	public String getGoodsNo() {
@@ -86,6 +87,14 @@ public class TGoods implements java.io.Serializable {
 
 	public void setGoodsNo(String goodsNo) {
 		this.goodsNo = goodsNo;
+	}
+
+	public TType getType() {
+		return type;
+	}
+
+	public void setType(TType type) {
+		this.type = type;
 	}
 
 	public String getGoodsTitle() {
