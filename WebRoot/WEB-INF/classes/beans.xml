@@ -21,11 +21,15 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	<tx:annotation-driven transaction-manager="txManager" />
-	<bean id="userDao" class="com.zhbit.user.dao.impl.UserDaoImpl"></bean>
+	<bean id="userDao" class="com.zhbit.user.dao.impl.UserDaoImpl">
+	    <property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
 	<bean id="userService" class="com.zhbit.user.service.impl.UserServiceImpl"></bean>
 	
 	<bean id="goodsAction" class="com.zhbit.goods.action.GoodsAction" scope="prototype"></bean>
-	<bean id="goodsDao" class="com.zhbit.goods.dao.impl.GoodsDaoImpl"></bean>
+	<bean id="goodsDao" class="com.zhbit.goods.dao.impl.GoodsDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
 	<bean id="goodsService" class="com.zhbit.goods.service.impl.GoodsServiceImpl"></bean>
 	
 	<bean id="adminLogin" class="com.zhbit.admin.action.LoginAction" scope="prototype"></bean>
@@ -37,10 +41,19 @@
 	<bean id="adminResetPwd" class="com.zhbit.admin.action.ResetPassword" scope="prototype"></bean>
 	<bean id="showAdmin" class="com.zhbit.admin.action.AdminAction" scope="prototype"></bean>
 	
+	<bean id="showUser" class="com.zhbit.user.action.ShowUserAction" scope="prototype"></bean>
+	
 	<bean id="categoryDao" class="com.zhbit.category.dao.impl.CategoryDaoImpl">
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 	<bean id="categoryService" class="com.zhbit.category.service.impl.CategoryServiceImpl"></bean>
 	<bean id="Category" class="com.zhbit.category.action.CategoryAction" scope="prototype"></bean>
 	<bean id="SecondCategory" class="com.zhbit.category.action.CategoryAction" scope="prototype"></bean>
+	<bean id="indexAction" class="com.zhbit.index.action.IndexAction" scope="prototype"></bean>
+	<bean id="addAddress" class="com.zhbit.user.action.addAddressAction" scope="prototype"></bean>
+	<bean id="userLogin" class="com.zhbit.user.action.LoginAction" scope="prototype"></bean>
+	<bean id="addressService" class="com.zhbit.user.service.impl.AddressServiceImpl"></bean>
+	<bean id="addressDao" class="com.zhbit.user.dao.impl.AddressDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
 </beans>

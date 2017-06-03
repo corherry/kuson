@@ -12,5 +12,4 @@ public interface AdminService {
 	public void add(TAdminInfo admin);
 	public void update(TAdminInfo admin);
 	
-
 }

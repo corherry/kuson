@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span></span>用户管理
 					</h4>
 					<div class="list-item none">
-						<a href="#">用户信息</a>
+						<a href="user_show!findUser.action?pageIndex=1">用户信息</a>
 					</div>
 				</li>
 				</li>
@@ -108,36 +108,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul>
 					<li><img src="adminPage/images/home.png"></li>
 					<li style="margin-left:25px;">您当前的位置：</li>
-					<li><a href="adminPage/page/adminInformation.jsp">权限管理</a></li>
+					<li>商品管理</li>
 					<li>></li>
-					<li>
-						<a href="adminPage/page/adminInformation.jsp">
-							<s:if test="#parameters.adminAuthority[0] == 2">
-								订单管理员
-							</s:if>
-							<s:elseif test="#parameters.adminAuthority[0] == 1">
-								商品管理员
-							</s:elseif>
-							<s:else>
-								配送管理员
-							</s:else>
-						</a>
-					</li>
+					<li>商品信息</li>
 				</ul>
 			</div>
 			<%int cas = 0; %>
 			<div class="main">
 			  <div align="center" style=" margin:20px;">
-			   	 <p align="center"><a href="adminPage/page/addGoods.jsp">添加商品</a></p>
+			   	 <p align="center"><a href="goods_show!categoryInfo.action">添加商品</a></p>
 				 <table border ="1" cellspacing = "0" cellpadding = "0" align ="center" width = "100%">
                    <tr>
-                     <th>序号</th><th>图片</th><th>分类</th><th>标题</th><th>价格</th><th>尺码</th><th>颜色</th><th>操作</th>
+                     <th>序号</th><th>图片</th><th>一级类别</th><th>二级类别</th><th>标题</th><th>价格</th><th>尺码</th><th>颜色</th><th>操作</th>
                    </tr>
-                   <c:forEach var = "product" items = "${requestScope.goodsList}" varStatus="status">
+                   <c:forEach var = "product" items="${pageBean.list}">
                     <tr>
                        <% ++cas; %>
                        <td align="center"><%= cas %></td>
                        <td align="center"><img width="50px" height="50px" src="adminPage/images/${product.goodsPicUrl}"></td>
+                       <td align="center">
+                       		${product.type.typeOne}
+                       </td>
                        <td align="center">
                        		${product.type.typeTwo}
                        </td>
@@ -145,11 +136,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        <td align="center">${product.goodsPrice}</td>
                        <td align="center">${product.goodsSize}</td>
                        <td align="center">${product.goodsColor}</td>
-                       <td align="center"><a href="#">修改</a>|<a href="">删除</a></td>
+                       <td align="center"><a href="goods_show!getGoodsInfor.action?goodsId=${product.goodsId}">修改</a>|<a href="goods_show!delete.action?goodsId=${product.goodsId}">删除</a></td>
                     </tr>
                    </c:forEach>
                  </table>
- 
+ 				 <a href="goods_show.action?pageIndex=1">首页</a>
+				 <a href="goods_show.action?pageIndex=${pageBean.pageIndex-1}">上一页</a>
+				 <a href="goods_show.action?pageIndex=${pageBean.pageIndex+1}">下一页</a>
+				 <a href="goods_show.action?pageIndex=${pageBean.totalPage}">末页</a>
+				 (${pageBean.pageIndex}/${pageBean.totalPage})
                </div>   
 			</div>
 		</div>

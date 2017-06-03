@@ -38,7 +38,6 @@ public class PageHibernateCallBack<T> implements HibernateCallback<List<T>> {
 			for (int i = 0; i < params.length; i++) {
 				query.setParameter(i, params[i]);
 			}
-
 		}
 		query.setFirstResult(startIndex);
 		query.setMaxResults(pageSize);

@@ -14,13 +14,12 @@ import com.zhbit.category.dao.CategoryDao;
 import com.zhbit.category.entity.TType;
 import com.zhbit.util.PageHibernateCallBack;
 
-@Transactional
 public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao{
 
 	@Resource
 	private SessionFactory sessionFactory;
+	
 	@Override
-	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public List<TType> findByFirstType(int begin, int limit, String firstType) {
 		String hql = "from TType where typeOne = ? and typeTwo is not null";
 		List<TType> categoryList = this.getHibernateTemplate().execute(new PageHibernateCallBack<TType>(hql, new Object[]{firstType}, begin, limit));
@@ -30,7 +29,6 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao{
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public int findCount(String firstType) {
 		String hql = "from TType where typeOne = :firstType and typeTwo is not null";
 		return sessionFactory.getCurrentSession().createQuery(hql).setString("firstType", firstType).list().size();
@@ -71,7 +69,6 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao{
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public int findFirstCategoryType() {
 		String hql = "select distinct typeOne from TType";
 		return sessionFactory.getCurrentSession().createQuery(hql).list().size();
@@ -80,8 +77,11 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao{
 	@Override
 	public void deleteByFirstType(String type) {
 		System.out.println(type);
-		String hql = "delete from TType where typeOne = ?";
-		sessionFactory.getCurrentSession().createQuery(hql).setParameter(0, type).executeUpdate();
+		String hql = "from TType where typeOne = ?";
+		List<TType> categoryList = sessionFactory.getCurrentSession().createQuery(hql).setParameter(0, type).list();
+		for(TType category:categoryList){
+			sessionFactory.getCurrentSession().delete(category);
+		}
 	}
 
 	@Override
@@ -115,5 +115,19 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao{
 	public TType findByTypeId(Integer typeId) {
 		TType type = (TType) sessionFactory.getCurrentSession().get(TType.class, typeId);
 		return type;
+	}
+
+	@Override
+	public List<String> findFirstType() {
+		String hql = "select distinct typeOne from TType";
+		List<String> firstCategoryList = sessionFactory.getCurrentSession().createQuery(hql).list();
+		return firstCategoryList;
+	}
+
+	@Override
+	public List<TType> findAllCategory() {
+		String hql = "from TType where typeTwo is not null";
+		List<TType> categoryList = sessionFactory.getCurrentSession().createQuery(hql).list();
+		return categoryList;
 	}
 }

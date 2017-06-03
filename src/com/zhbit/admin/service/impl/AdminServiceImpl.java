@@ -4,11 +4,15 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.zhbit.admin.dao.AdminDao;
 import com.zhbit.admin.entity.TAdminInfo;
 import com.zhbit.admin.service.AdminService;
 import com.zhbit.util.PageBean;
 
+@Transactional
 public class AdminServiceImpl implements AdminService {
 	@Resource
 	private AdminDao adminDao;
@@ -22,16 +26,8 @@ public class AdminServiceImpl implements AdminService {
 		adminDao.update(admin);
 	}
 
-
-	public AdminDao getAdminDao() {
-		return adminDao;
-	}
-
-	public void setAdminDao(AdminDao adminDao) {
-		this.adminDao = adminDao;
-	}
-
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public TAdminInfo checkLogin(TAdminInfo admin) {
 		return adminDao.checkLogin(admin);
 	}
@@ -42,6 +38,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public PageBean<TAdminInfo> findAdminByAuthority(Integer pageIndex, Integer adminAuthority) {
 		PageBean<TAdminInfo> pageBean = new PageBean<TAdminInfo>();
 		int limit = 10;
@@ -71,6 +68,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public TAdminInfo findByAdminId(Integer adminId) {
 		return adminDao.findByAdminId(adminId);
 	}

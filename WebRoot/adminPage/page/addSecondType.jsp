@@ -90,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span></span>用户管理
 					</h4>
 					<div class="list-item none">
-						<a href="#">用户信息</a>
+						<a href="user_show!findUser.action?pageIndex=1">用户信息</a>
 					</div>
 				</li>
 				</li>
@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="main">
 			  <div align="center" style=" margin:20px; line-height:28px;"  >
 				<s:form action="category!add.action" method="post" namespace="/">
-					<s:textfield name="firstType" label="一级分类" value="%{#session.firstType}" readonly="readonly"></s:textfield>
+					<s:textfield name="firstType" label="一级分类" value="%{#session.firstType}" readonly="true" ></s:textfield>
 					<s:textfield name="secondType" label="二级分类" size="20"/>
 					<s:submit value="添加" align="center"></s:submit>
 				 </s:form>

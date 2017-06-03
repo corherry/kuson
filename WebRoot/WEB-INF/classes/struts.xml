@@ -26,12 +26,34 @@
 			<result name="set">/adminPage/page/updateFirstCategory.jsp</result>
 			<result name="setCategory">/adminPage/page/updateSecondCategory.jsp</result>
 		</action>
+		<action name="indexcategory" class="Category">
+		    <result name="showFirstType" type="redirect">/userPage/index.jsp</result>
+		    <result name="input">/userPage/index.jsp</result>
+		</action>
 		<action name="secondCategory" class="SecondCategory" method="setFirstCategory">
 			<result name="set">/adminPage/page/addSecondType.jsp</result>
 		</action>
 		<action name="goods_show" class="goodsAction">
 			<param name="savePath">/adminPage/images</param>
 			<result name="success">/adminPage/page/showGoods.jsp</result>
+			<result name="goodsInfor">/adminPage/page/updateGoods.jsp</result>
+			<result name="category">/adminPage/page/addGoods.jsp</result>
+			<result name="productInfo" type="redirect">/userPage/single.jsp</result>
 		</action>
+		<action name="user_show" class="showUser">
+		    <result name="input">/adminPage/page/updateUser.jsp</result>
+		    <result name="findUser">/adminPage/page/userInformation.jsp</result>
+		    <result name="success">/adminPage/page/userInformaton.jsp</result>
+		    <result name="find">/adminPage/page/updateUser.jsp</result>
+		</action>
+		<action name="user_login" class="userLogin">
+			<result name="success" type="redirect">/userPage/index.jsp</result>
+		</action>
+		<action name="index" class="indexAction">
+            <result name="success" type="redirect">/userPage/index.jsp</result>
+        </action>
+        <action name="address_add" class="addAddress">
+        	<result name="success">/userPage/addadress.jsp</result>
+        </action>
 	</package>
 </struts>    

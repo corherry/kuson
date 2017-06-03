@@ -34,6 +34,11 @@ public class CategoryAction extends ActionSupport{
 		ActionContext.getContext().put("pageBean", pageBean);
 		return "showFirstType";
 	}
+	public String showindexFirstCategory() throws Exception{
+		PageBean<String> pageBean = categoryService.showFirtType(pageIndex);
+		ActionContext.getContext().getSession().put("pageBean", pageBean);
+		return "showFirstType";
+	}
 	public String setFirstCategory() throws Exception{
 		ActionContext.getContext().getSession().put("firstType", firstType);
 		return "set";

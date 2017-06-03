@@ -15,7 +15,6 @@ import com.zhbit.admin.dao.AdminDao;
 import com.zhbit.admin.entity.TAdminInfo;
 import com.zhbit.util.PageHibernateCallBack;
 
-@Transactional
 public class AdminDaoImpl extends HibernateDaoSupport implements AdminDao{
 
 	@Resource
@@ -36,7 +35,6 @@ public class AdminDaoImpl extends HibernateDaoSupport implements AdminDao{
 	
 	//查询登陆用户是否存在
 	@Override
-	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public TAdminInfo checkLogin(TAdminInfo admin) {
 		String hql = "from TAdminInfo where adminAccount = :account and adminPassword = :password";
 		TAdminInfo adminInfo = (TAdminInfo) sessionFactory.getCurrentSession().createQuery(hql)

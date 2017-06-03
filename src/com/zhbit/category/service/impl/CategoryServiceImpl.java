@@ -4,19 +4,24 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.zhbit.category.dao.CategoryDao;
 import com.zhbit.category.entity.TType;
 import com.zhbit.category.service.CategoryService;
 import com.zhbit.util.PageBean;
 
+@Transactional
 public class CategoryServiceImpl implements CategoryService{
 
 	@Resource
 	private CategoryDao categoryDao;
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public PageBean<TType> findByFirstType(Integer pageIndex, String firstType) {
 		PageBean<TType> pageBean = new PageBean<TType>();
-		int limit = 10;
+		int limit = 7;
 		int totalCount = categoryDao.findCount(firstType);
 		int totalPage = 0;
 		if (totalCount % limit == 0) {
@@ -57,9 +62,10 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 	
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public PageBean<String> showFirtType(Integer pageIndex) {
 		PageBean<String> pageBean = new PageBean<String>();
-		int limit = 10;
+		int limit = 5;
 		int totalCount = categoryDao.findFirstCategoryType();
 		int totalPage = 0;
 		if (totalCount % limit == 0) {
@@ -103,8 +109,17 @@ public class CategoryServiceImpl implements CategoryService{
 		return categoryDao.addFirstType(type);
 	}
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public TType findByTypeId(Integer typeId) {
 		return categoryDao.findByTypeId(typeId);
+	}
+	@Override
+	public List<String> findFirstType() {
+		return categoryDao.findFirstType();
+	}
+	@Override
+	public List<TType> findAllCategory() {
+		return categoryDao.findAllCategory();
 	}
 
 }

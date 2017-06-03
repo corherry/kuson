@@ -1,5 +1,7 @@
 package com.zhbit.category.service;
 
+import java.util.List;
+
 import com.zhbit.category.entity.TType;
 import com.zhbit.util.PageBean;
 
@@ -8,6 +10,8 @@ public interface CategoryService {
 	public void delete(Integer typeId);
 	public TType add(TType type);
 	public void update(TType type);
+	public List<String> findFirstType();
+	public List<TType> findAllCategory();
 	
 	public TType addFirstType(TType type);
 	public PageBean<String> showFirtType(Integer pageIndex);

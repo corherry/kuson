@@ -90,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span></span>用户管理
 					</h4>
 					<div class="list-item none">
-						<a href="#">用户信息</a>
+						<a href="user_show!findUser.action?pageIndex=1">用户信息</a>
 					</div>
 				</li>
 				</li>

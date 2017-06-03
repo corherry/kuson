@@ -14,12 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
+import org.jboss.cache.StringFqn;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.zhbit.goods.entity.Category;
 import com.zhbit.goods.entity.TGoods;
 import com.zhbit.category.entity.TType;
 import com.zhbit.goods.service.GoodsService;
+import com.zhbit.util.PageBean;
 
 public class GoodsAction extends ActionSupport {
 	private static final int BUFFER_SIZE = 10*10;
@@ -29,9 +32,20 @@ public class GoodsAction extends ActionSupport {
 	private String savePath;
 	private TGoods goods;
 	private TType type;
+	private Integer pageIndex;
+	private Integer goodsId;
+	private String firstCategory;
+	private String category;
+	private Integer typeId;
+	private String goodsNo;
+	public String getGoodsNo() {
+		return goodsNo;
+	}
+	public void setGoodsNo(String goodsNo) {
+		this.goodsNo = goodsNo;
+	}
 	@Resource
 	private GoodsService goodsService;
-	private List<TGoods> goodsList;
 	
 	private static void copy(File source, File target){
 		InputStream inputStream = null;
@@ -64,9 +78,8 @@ public class GoodsAction extends ActionSupport {
 		}
 	}
 	public String execute() throws Exception{
-		HttpServletRequest request= ServletActionContext.getRequest();
-		goodsList = goodsService.queryAllGoods();
-		request.setAttribute("goodsList", goodsList);
+		PageBean<TGoods> pageBean = goodsService.queryAllGoods(pageIndex);
+		ActionContext.getContext().put("pageBean", pageBean);
 		return SUCCESS;
 	}
 	public String addGoods() throws Exception{
@@ -74,14 +87,86 @@ public class GoodsAction extends ActionSupport {
 		goods.setGoodsPicUrl(this.uploadFileName);
 		File target = new File(path);
 		copy(this.upload, target);
+		type = goodsService.findTypeBytid(typeId);
+		goods.setTType(type);
 		goodsService.add(goods);
 		return execute();
 	}
-	public List<TGoods> getGoodsList() {
-		return goodsList;
+	
+	public String getGoodsInfor() throws Exception{
+		goods = goodsService.findByGoodsId(goodsId);
+		ActionContext.getContext().getSession().put("goods", goods);
+		List<Category> categoryList = goodsService.categoryInfo();
+		ActionContext.getContext().put("categoryList", categoryList);
+		return "goodsInfor";
 	}
-	public void setGoodsList(List<TGoods> goodsList) {
-		this.goodsList = goodsList;
+	public String updateGoods() throws Exception{
+		if(upload != null){
+			String path = goods.getGoodsPicUrl();
+			File file = new File(ServletActionContext.getServletContext().getRealPath("/" + path));
+			file.delete();
+			String realPath = ServletActionContext.getServletContext().getRealPath(this.getSavePath()) + "\\" + this.getUploadFileName();
+			File target = new File(realPath);
+			copy(this.upload, target);
+			goods.setGoodsPicUrl(this.uploadFileName);
+		}else{
+			goods.setGoodsPicUrl(goods.getGoodsPicUrl());
+		}
+		type = goodsService.findTypeBytid(typeId);
+		goods.setTType(type);
+		goodsService.update(goods);
+		return execute();
+	}
+	public String delete() throws Exception{
+		goods = goodsService.findByGoodsId(goodsId);
+		goodsService.delete(goods);
+		return execute();
+	}
+	public String findByFirstCategory() throws Exception{
+		List<TGoods> goodsList = goodsService.findByFirstCategory(firstCategory);
+		ActionContext.getContext().put("goodsList", goodsList);
+		return "firstCategory";
+	}
+	
+	public String findByTypeId() throws Exception{
+		type = goodsService.findByType(type);
+		List<TGoods> goodsList = goodsService.findByTypeId(type.getTypeId());
+		ActionContext.getContext().put("goodsList", goodsList);
+		return "secondCategory";
+	}
+	
+	public String findByGoodsId() throws Exception{
+		TGoods product = goodsService.findByGoodsId(goodsId);
+		ActionContext.getContext().put("product", product);
+		return "product";
+	}
+	public String findGoodsInfo() throws Exception{
+		List<TGoods> goodsInfoList = goodsService.findByGoodsNo(goodsNo);
+		ActionContext.getContext().getSession().put("goodsInfoList", goodsInfoList);
+		return "productInfo";
+	}
+	public String categoryInfo() throws Exception{
+		List<Category> categoryList = goodsService.categoryInfo();
+		ActionContext.getContext().put("categoryList", categoryList);
+		return "category";
+	}
+	public Integer getGoodsId() {
+		return goodsId;
+	}
+	public void setGoodsId(Integer goodsId) {
+		this.goodsId = goodsId;
+	}
+	public TType getType() {
+		return type;
+	}
+	public void setType(TType type) {
+		this.type = type;
+	}
+	public Integer getPageIndex() {
+		return pageIndex;
+	}
+	public void setPageIndex(Integer pageIndex) {
+		this.pageIndex = pageIndex;
 	}
 	public TGoods getGoods() {
 		return goods;
@@ -112,5 +197,23 @@ public class GoodsAction extends ActionSupport {
 	}
 	public void setSavePath(String savePath) {
 		this.savePath = savePath;
+	}
+	public String getFirstCategory() {
+		return firstCategory;
+	}
+	public void setFirstCategory(String firstCategory) {
+		this.firstCategory = firstCategory;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public Integer getTypeId() {
+		return typeId;
+	}
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
 	}
 }
