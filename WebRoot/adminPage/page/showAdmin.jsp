@@ -172,11 +172,13 @@ else
 							</tr>	 
 						</c:forEach>
 					</table>
+					<c:if test="${pageBean.totalPage > 0}">
 					<a href="admin_show!findAdminByAuthority.action?pageIndex=1&adminAuthority=${requestScope.adminAuthority}">首页</a>
 					<a href="admin_show!findAdminByAuthority.action?pageIndex=${pageBean.pageIndex-1}&adminAuthority=${requestScope.adminAuthority}">上一页</a>
 					<a href="admin_show!findAdminByAuthority.action?pageIndex=${pageBean.pageIndex+1}&adminAuthority=${requestScope.adminAuthority}">下一页</a>
 					<a href="admin_show!findAdminByAuthority.action?pageIndex=${pageBean.totalPage}&adminAuthority=${requestScope.adminAuthority}">末页</a>
 					(${pageBean.pageIndex}/${pageBean.totalPage})
+					</c:if>
 				</div>
 			</div>
 		</div>

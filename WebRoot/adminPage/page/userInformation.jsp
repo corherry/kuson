@@ -167,11 +167,13 @@ else
 							</tr>	 
 						</c:forEach>
 					</table>
+					<c:if test="${pageBean.totalPage > 0}">
 					<a href="user_show!findUser.action?pageIndex=1">首页</a>
 					<a href="user_show!findUser.action?pageIndex=${pageBean.pageIndex-1}">上一页</a>
 					<a href="user_show!findUser.action?pageIndex=${pageBean.pageIndex+1}">下一页</a>
 					<a href="user_show!findUser.action?pageIndex=${pageBean.totalPage}">末页</a>
 					(${pageBean.pageIndex}/${pageBean.totalPage})
+					</c:if>
 				</div>
 			</div>
 		</div>

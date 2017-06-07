@@ -156,11 +156,13 @@ else
                     </tr>
                    </c:forEach>
                  </table>
+                 	<c:if test="${pageBean.totalPage > 0}">
                 	<a href="category!findByFirstType.action?pageIndex=1&firstType=${requestScope.firstType}">首页</a>
 					<a href="category!findByFirstType.action?pageIndex=${pageBean.pageIndex-1}&firstType=${requestScope.firstType}">上一页</a>
 					<a href="category!findByFirstType.action?pageIndex=${pageBean.pageIndex+1}&firstType=${requestScope.firstType}">下一页</a>
 					<a href="category!findByFirstType.action?pageIndex=${pageBean.totalPage}&firstType=${requestScope.firstType}">末页</a>
 					(${pageBean.pageIndex}/${pageBean.totalPage})
+					</c:if>
                </div>   
 			</div>
 		</div>
