@@ -3,6 +3,10 @@ package com.zhbit.user.action;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.annotation.Resource;
+
+import org.jboss.cache.StringFqn;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.zhbit.util.SendEmail;
 import com.zhbit.user.entity.TEmailuser;
@@ -13,7 +17,9 @@ public class EmailRegisterAction extends ActionSupport{
 	
 	private static final long serialVersionUID = 1L;
 	private TEmailuser user;
+	@Resource
 	private UserService userService;
+	private String rePassword;
 	public String register() throws Exception{
 		TEmailuser emailuser = new TEmailuser(user.getUsername(), MD5Util.encode2hex(user.getPassword()), user.getEmail(), 0, MD5Util.encode2hex(user.getEmail()), new Timestamp((new Date()).getTime()));
 		TEmailuser existingUser = userService.findByEmail(user.getEmail());
@@ -28,12 +34,12 @@ public class EmailRegisterAction extends ActionSupport{
 			content.append("请您点击下面的链接(该链接在48小时内有效)，完成您在酷森服装旗舰店的验证");
 			content.append("<br/>");
 			content.append("<br/>");
-			content.append("<a href = \"http://localhost:8080/Kuson/activeAccount!active.action?signupEmail="); 
+			content.append("<a href = \"http://localhost:8080/Kuson/user_active!active.action?signupEmail="); 
 			content.append(emailuser.getEmail());
 			content.append("&validateCode=");
 			content.append(emailuser.getValidateCode());
 			content.append("\">");
-			content.append("http://localhost:8080/Kuson/activeAccount!active.action?signupEmail=");
+			content.append("http://localhost:8080/Kuson/user_active!active.action?signupEmail=");
 			content.append(emailuser.getEmail());
 			content.append("&validateCode=");
 			content.append(emailuser.getValidateCode());
@@ -53,10 +59,10 @@ public class EmailRegisterAction extends ActionSupport{
 	public void setUser(TEmailuser user) {
 		this.user = user;
 	}
-	public UserService getUserService() {
-		return userService;
+	public String getRePassword() {
+		return rePassword;
 	}
-	public void setUserService(UserService userService) {
-		this.userService = userService;
+	public void setRePassword(String rePassword) {
+		this.rePassword = rePassword;
 	}
 }

@@ -76,5 +76,15 @@ public class AdminDaoImpl extends HibernateDaoSupport implements AdminDao{
 			return adminInfo;
 		return null;
 	}
+	//按账号查找管理员
+	@Override
+	public TAdminInfo findByAdminAccount(String adminAccount) {
+		String hql = "from TAdminInfo where adminAccount = ?";
+		TAdminInfo adminInfo = (TAdminInfo) sessionFactory.getCurrentSession().createQuery(hql).setParameter(0, adminAccount).uniqueResult();
+		if(adminInfo != null)
+			return adminInfo;
+		return null;
+	}
+	
 	
 }

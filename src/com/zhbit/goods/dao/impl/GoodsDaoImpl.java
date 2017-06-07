@@ -49,7 +49,7 @@ public class GoodsDaoImpl extends HibernateDaoSupport implements GoodsDao{
 	}
 	
 	public List<TGoods> findAllGoods(){
-		String hql = "from TGoods where goodsId in (select min(goodsId) from TGoods group by goodsNo)";
+		String hql = "from TGoods";
 		List<TGoods> goodsList = sessionFactory.getCurrentSession().createQuery(hql).list();
 		return goodsList;
 	}
@@ -80,13 +80,13 @@ public class GoodsDaoImpl extends HibernateDaoSupport implements GoodsDao{
 	}
 	@Override
 	public List<TGoods> findByFirstCategory(String type) {
-		String hql = "from Goods g where g.type.typeOne = ?";
+		String hql = "from TGoods g where g.type.typeOne = ?";
 		List<TGoods> goodsList = sessionFactory.getCurrentSession().createQuery(hql).setParameter(0, type).list();
 		return goodsList;
 	}
 	@Override
 	public List<TGoods> findByTypeId(Integer tid) {
-		String hql = "from Goods g where g.type.typeId = ?";
+		String hql = "from TGoods g where g.type.typeId = ?";
 		List<TGoods> goodsList = sessionFactory.getCurrentSession().createQuery(hql).setParameter(0, tid).list();
 		return goodsList;
 	}

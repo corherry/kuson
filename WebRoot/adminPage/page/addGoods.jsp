@@ -76,9 +76,12 @@
 							<span></span>订单管理
 						</h4>
 						<div class="list-item none">
-							<a href="#">待付款订单</a> <a href="#">待发货订单</a> <a href="#">已发货订单</a>
-							<a href="#">已完成订单</a> <a href="#">待评价订单</a> <a href="#">所有订单</a>
-							<a href="#">已关闭订单</a>
+									<a href="order!findOrderByStatus.action?pageIndex=1&status=5">所有订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=0">待付款订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=1">待发货订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=2">已发货订单</a>
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=3">已完成订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=-1">已关闭订单</a>
 						</div>
 					</li>
 				</s:if>
@@ -130,7 +133,7 @@
 						<s:textfield name="goods.goodsColor" label="商品颜色"></s:textfield>
 						<s:textfield name="goods.goodsAmount" label="商品库存"></s:textfield>
 						<s:textfield name="goods.goodsDescription" label="商品描述"></s:textfield>
-						<s:select list="%{categoryList}" listKey="cid" listValue="category" label="类别" name="typeId"></s:select>
+						<s:select list="%{#session.categoryList}" listKey="cid" listValue="category" label="类别" name="typeId"></s:select>
 						<s:submit value="提交" align="center" />
 					</s:form>
 				</div>

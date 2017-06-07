@@ -14,21 +14,31 @@ public class LoginAction extends ActionSupport{
 	@Resource
 	private UserService userService;
 	public String login() throws Exception{
-		TEmailuser emailuser = userService.checkEmailUser(user);
-		System.out.println(user.getEmail());
+		TEmailuser emailuser = userService.findByEmail(user.getEmail());
 		if(emailuser != null){
-			this.setUser(emailuser);
-			ActionContext.getContext().getSession().put("user", emailuser);
-			return SUCCESS;
+			if(emailuser.getStatus() == 1){
+				emailuser = userService.checkEmailUser(user);
+				if(emailuser != null){
+					this.setUser(emailuser);
+					ActionContext.getContext().getSession().put("user", emailuser);
+					return SUCCESS;
+				}else{
+					this.addFieldError("user.email", "’À∫≈/√‹¬Î¥ÌŒÛ!");
+					return LOGIN;
+				}
+			}else{
+				this.addFieldError("user.email", "” œ‰…–Œ¥º§ªÓ!");
+				return LOGIN;
+			}
 		}
 		else {
-			ActionContext.getContext().getSession().put("imfo", "” œ‰ªÚ’ﬂ√‹¬Î¥ÌŒÛ£¨«Î÷ÿ–¬µ«¬Ω");
+			this.addFieldError("user.email", "’À∫≈≤ª¥Ê‘⁄!");
 			return LOGIN;
 		}
 	}
 	
 	public String logoff()throws Exception{
-		ActionContext.getContext().getSession().clear();
+		ActionContext.getContext().getSession().remove("user");
 		return SUCCESS;
 	}
 	public TEmailuser getUser() {

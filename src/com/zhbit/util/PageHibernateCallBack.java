@@ -7,13 +7,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
-/**
- * @Title:PageHibernateCallBack
- * @Description:自定义封装的hibernate 分页查询
- * @author:Rainbow.huahang.com
- * @param <T>
- * @date:2016年10月16日 下午11:44:53
- */
 public class PageHibernateCallBack<T> implements HibernateCallback<List<T>> {
 
 	private String hql;// hql查询语句

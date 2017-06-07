@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-	<package name="admin" extends="struts-default" namespace="/">
+	<package name="admin" extends="struts-default,json-default" namespace="/">
+		<global-results>
+			<!-- 省去其他公共配置 -->
+			<result name="stream" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</global-results>
+		<action name="user_register" class="userRegister">
+			<result name="success" type="redirect">/userPage/index.jsp</result>
+		</action>
+		<action name="user_active" class="userActive">
+			<result name="success" type="redirect">/userPage/index.jsp</result>
+		</action>
 		<action name="admin_login" class="adminLogin">
 			<result name="success" type="redirect">/adminPage/index.jsp</result>
 			<result name="login" type="redirect">/adminPage/page/login.jsp</result>
@@ -11,7 +23,7 @@
 			<result name="success">/adminPage/index.jsp</result>
 		</action>
 		<action name="admin_show" class="showAdmin">
-		    <result name="input">/adminPage/page/updateAdmin.jsp</result>
+			<result name="input">/adminPage/page/updateAdmin.jsp</result>
 			<result name="findAdmin">/adminPage/page/showAdmin.jsp</result>
 			<result name="success">/adminPage/page/showAdmin.jsp</result>
 			<result name="find">/adminPage/page/updateAdmin.jsp</result>
@@ -25,10 +37,14 @@
 			<result name="showFirstType">/adminPage/page/classification.jsp</result>
 			<result name="set">/adminPage/page/updateFirstCategory.jsp</result>
 			<result name="setCategory">/adminPage/page/updateSecondCategory.jsp</result>
+			<result name="input1">/adminPage/page/addFirstType.jsp</result>
+			<result name="input2">/adminPage/page/updateFirstCategory.jsp</result>
+			<result name="input3">/adminPage/page/addSecondType.jsp</result>
+			<result name="input4">/adminPage/page/updateSecondCategory.jsp</result>
 		</action>
 		<action name="indexcategory" class="Category">
-		    <result name="showFirstType" type="redirect">/userPage/index.jsp</result>
-		    <result name="input">/userPage/index.jsp</result>
+			<result name="showFirstType" type="redirect">/userPage/index.jsp</result>
+			<result name="input">/userPage/index.jsp</result>
 		</action>
 		<action name="secondCategory" class="SecondCategory" method="setFirstCategory">
 			<result name="set">/adminPage/page/addSecondType.jsp</result>
@@ -39,21 +55,30 @@
 			<result name="goodsInfor">/adminPage/page/updateGoods.jsp</result>
 			<result name="category">/adminPage/page/addGoods.jsp</result>
 			<result name="productInfo" type="redirect">/userPage/single.jsp</result>
+			<result name="showByCaterory" type="redirect">/userPage/index.jsp</result>
+			<result name="input">/adminPage/page/addGoods.jsp</result>
 		</action>
 		<action name="user_show" class="showUser">
-		    <result name="input">/adminPage/page/updateUser.jsp</result>
-		    <result name="findUser">/adminPage/page/userInformation.jsp</result>
-		    <result name="success">/adminPage/page/userInformaton.jsp</result>
-		    <result name="find">/adminPage/page/updateUser.jsp</result>
+			<result name="input">/adminPage/page/updateUser.jsp</result>
+			<result name="findUser">/adminPage/page/userInformation.jsp</result>
+			<result name="success">/adminPage/page/userInformaton.jsp</result>
+			<result name="find">/adminPage/page/updateUser.jsp</result>
 		</action>
 		<action name="user_login" class="userLogin">
 			<result name="success" type="redirect">/userPage/index.jsp</result>
+			<result name="login" type="redirect">/userPage/index.jsp</result>
 		</action>
 		<action name="index" class="indexAction">
-            <result name="success" type="redirect">/userPage/index.jsp</result>
-        </action>
-        <action name="address_add" class="addAddress">
-        	<result name="success">/userPage/addadress.jsp</result>
-        </action>
+			<result name="success" type="redirect">/userPage/index.jsp</result>
+		</action>
+		<action name="address_add" class="addAddress">
+			<result name="success">/userPage/addadress.jsp</result>
+		</action>
+		<action name="cart" class="cartAction">
+			<result name="lookCart" type="redirect">/userPage/cart.jsp</result>
+		</action>
+		<action name="order" class="orderAction">
+			<result name="show">/adminPage/page/showOrder.jsp</result>
+		</action>
 	</package>
 </struts>    

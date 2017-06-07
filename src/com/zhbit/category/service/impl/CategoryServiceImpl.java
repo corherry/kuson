@@ -57,8 +57,14 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 	
 	@Override
-	public void update(TType type){
-		categoryDao.update(type);
+	public TType update(TType type){
+		return categoryDao.update(type);
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED)
+	public List<TType> checkFirstType(String firstType){
+		return categoryDao.checkFirstType(firstType);
 	}
 	
 	@Override
@@ -113,6 +119,7 @@ public class CategoryServiceImpl implements CategoryService{
 	public TType findByTypeId(Integer typeId) {
 		return categoryDao.findByTypeId(typeId);
 	}
+	
 	@Override
 	public List<String> findFirstType() {
 		return categoryDao.findFirstType();

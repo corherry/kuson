@@ -22,6 +22,7 @@ public class AdminAction extends ActionSupport implements Preparable {
 	private TAdminInfo admin;
 	private TAdminInfo adminInfo;
 	private String rePassword;
+	private String oldAdminAccount;
 
 	public String findAdminByAuthority() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -45,8 +46,13 @@ public class AdminAction extends ActionSupport implements Preparable {
 		adminService.deleteAdminById(adminId);
 		return findAdminByAuthority();
 	}
-
+    
+	//修改管理员
 	public String update() throws Exception {
+		if(oldAdminAccount.equals(adminInfo.getAdminAccount()) == false && adminService.findByAdminAccount(adminInfo.getAdminAccount()) != null){
+			this.addFieldError("adminInfo.adminAccount", "该账号已存在，请重新输入");
+			return INPUT;
+		}
 		adminService.update(adminInfo);
 		return findAdminByAuthority();
 	}
@@ -57,6 +63,10 @@ public class AdminAction extends ActionSupport implements Preparable {
 		String authority = request.getParameter("adminAuthority");
 		adminAuthority = Integer.parseInt(authority);
 		adminInfo.setAdminAuthority(adminAuthority);
+		if(adminService.findByAdminAccount(adminInfo.getAdminAccount()) != null){
+			this.addFieldError("adminInfo.adminAccount", "该账号已存在，请重新输入");
+			return INPUT;
+		}
 		adminService.add(adminInfo);
 		request.setAttribute("adminAuthority", adminAuthority);
 		return findAdminByAuthority();
@@ -153,6 +163,14 @@ public class AdminAction extends ActionSupport implements Preparable {
 
 	public void setAdmin(TAdminInfo admin) {
 		this.admin = admin;
+	}
+
+	public String getOldAdminAccount() {
+		return oldAdminAccount;
+	}
+
+	public void setOldAdminAccount(String oldAdminAccount) {
+		this.oldAdminAccount = oldAdminAccount;
 	}
 
 }

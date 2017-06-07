@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -18,13 +19,14 @@ import org.jboss.cache.StringFqn;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.Preparable;
 import com.zhbit.goods.entity.Category;
 import com.zhbit.goods.entity.TGoods;
 import com.zhbit.category.entity.TType;
 import com.zhbit.goods.service.GoodsService;
 import com.zhbit.util.PageBean;
 
-public class GoodsAction extends ActionSupport {
+public class GoodsAction extends ActionSupport implements Preparable{
 	private static final int BUFFER_SIZE = 10*10;
 	private File upload;
 	private String uploadContentType;
@@ -92,7 +94,32 @@ public class GoodsAction extends ActionSupport {
 		goodsService.add(goods);
 		return execute();
 	}
+	public void validateAddGoods() {
+		String regex = "^[0-9]";
+		if (goods.getGoodsNo() == null || goods.getGoodsNo().length() == 0) {
+			this.addFieldError("goods.goodsNo", "必填");
+		}else if(Pattern.matches(regex, goods.getGoodsNo()) == false){
+			this.addFieldError("goods.goodsNo", "商品编号只能包含数字");
+		}
+		if (goods.getGoodsTitle() == null || goods.getGoodsTitle().length() == 0) {
+			this.addFieldError("goods.goodsTitle", "必填");
+		}
+		if(goods.getGoodsPrice() == null){
+			this.addFieldError("goods.goodsPrice", "必填");
+		}
+		if(goods.getGoodsSize() == null || goods.getGoodsSize().length() == 0){
+			this.addFieldError("goods.goodsSize", "必填");
+		}
+		if(goods.getGoodsColor() == null || goods.getGoodsColor().length() == 0){
+			this.addFieldError("goods.goodsColor", "必填");
+		}
+	}
 	
+	public String findGoodsByTypeId() throws Exception{
+		List<TGoods> goodsList = goodsService.findByTypeId(typeId);
+		ActionContext.getContext().getSession().put("goodsList", goodsList);
+		return "showByCaterory";
+	}
 	public String getGoodsInfor() throws Exception{
 		goods = goodsService.findByGoodsId(goodsId);
 		ActionContext.getContext().getSession().put("goods", goods);
@@ -131,7 +158,7 @@ public class GoodsAction extends ActionSupport {
 	public String findByTypeId() throws Exception{
 		type = goodsService.findByType(type);
 		List<TGoods> goodsList = goodsService.findByTypeId(type.getTypeId());
-		ActionContext.getContext().put("goodsList", goodsList);
+		ActionContext.getContext().getSession().put("goodsList", goodsList);
 		return "secondCategory";
 	}
 	
@@ -141,14 +168,18 @@ public class GoodsAction extends ActionSupport {
 		return "product";
 	}
 	public String findGoodsInfo() throws Exception{
-		List<TGoods> goodsInfoList = goodsService.findByGoodsNo(goodsNo);
-		ActionContext.getContext().getSession().put("goodsInfoList", goodsInfoList);
+		TGoods productInfo = goodsService.findByGoodsId(goodsId);
+		ActionContext.getContext().getSession().put("productInfo", productInfo);
 		return "productInfo";
 	}
 	public String categoryInfo() throws Exception{
 		List<Category> categoryList = goodsService.categoryInfo();
-		ActionContext.getContext().put("categoryList", categoryList);
+		ActionContext.getContext().getSession().put("categoryList", categoryList);
 		return "category";
+	}
+	
+	public void prepare() throws Exception {
+		clearErrorsAndMessages();
 	}
 	public Integer getGoodsId() {
 		return goodsId;

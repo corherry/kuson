@@ -9,7 +9,7 @@ public interface CategoryDao {
 	public int findCount(String firstType);
 	public void delete(Integer typeId);
 	public TType add(TType type);
-	public void update(TType type);
+	public TType update(TType type);
 	public List<TType> findAllCategory();
 	
 	public TType addFirstType(TType type);
@@ -20,4 +20,5 @@ public interface CategoryDao {
 	public void updateByFirstType(String firstType, String type);
 	public TType findByTypeId(Integer typeId);
 	public List<String> findFirstType();
+	public List<TType> checkFirstType(String firstType);
 }

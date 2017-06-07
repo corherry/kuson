@@ -9,7 +9,7 @@ public interface CategoryService {
 	public PageBean<TType> findByFirstType(Integer pageIndex, String firstType);
 	public void delete(Integer typeId);
 	public TType add(TType type);
-	public void update(TType type);
+	public TType update(TType type);
 	public List<String> findFirstType();
 	public List<TType> findAllCategory();
 	
@@ -19,4 +19,5 @@ public interface CategoryService {
 	public TType addFirtType(TType type);
 	public void updateByFirstType(String firstType, String type);
 	public TType findByTypeId(Integer typeId);
+	public List<TType> checkFirstType(String firstType);
 }

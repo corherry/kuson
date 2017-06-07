@@ -74,9 +74,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span></span>订单管理
 					</h4>
 					<div class="list-item none">
-						<a href="adminPage/page/nopayOrder.jsp">待付款订单</a> <a href="adminPage/page/nosentOrder.jsp">待发货订单</a> <a href="adminPage/page/sentedOrder.jsp">已发货订单</a>
-						<a href="adminPage/page/finishedOrder.jsp">已完成订单</a> <a href="adminPage/page/noevalutionOrder.jsp">待评价订单</a> <a href="adminPage/page/allOrder.jsp">所有订单</a> <a
-							href="adminPage/page/closeOrder.jsp">已关闭订单</a>
+								<a href="order!findOrderByStatus.action?pageIndex=1&status=5">所有订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=0">待付款订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=1">待发货订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=2">已发货订单</a>
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=3">已完成订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=-1">已关闭订单</a>
 					</div>
 				</li>
 				</s:if>
@@ -117,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div align="center" style=" margin:20px; line-height:28px;">
 					<s:form action="goods_show!updateGoods.action" method="post" namespace="/" enctype="multipart/form-data">
 						<s:hidden name="goods.goodsId" value="%{#session.goods.goodsId}"></s:hidden>
-						<img src="adminPage/images/<s:property value="goods.goodsPicUrl" />" />
+						<img width=120px; src="adminPage/images/<s:property value="goods.goodsPicUrl" />" />
 						<s:hidden name="goods.goodsPicUrl" value="%{#session.goods.goodsPicUrl}"></s:hidden>
 						<s:file name="upload" label="商品图片" value="%{#session.goods.goodsPicUrl}"></s:file>
     					<s:textfield name="goods.goodsNo" label="商品编号" value="%{#session.goods.goodsNo}"></s:textfield>

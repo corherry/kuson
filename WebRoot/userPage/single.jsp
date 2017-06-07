@@ -1,11 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -129,12 +124,15 @@
 					<div class="collapse navbar-collapse menu--shylock"
 						id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav menu__list">
-							<li class="active menu__item "><a class="menu__link" href="index.html">&nbsp;首 &nbsp;页&nbsp; <span class="sr-only">(current)</span></a></li>
+							<li class="active menu__item "><a class="menu__link"
+								href="../index.action">&nbsp;首 &nbsp;页&nbsp; <span
+									class="sr-only">(current)</span></a></li>
 							<c:forEach var="firstCategory" items="${firstCategoryList}">
-								<li class="dropdown menu__item">
-									<a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;&nbsp;${firstCategory}&nbsp;&nbsp;&nbsp;
+								<li class="dropdown menu__item"><a href="#"
+									class="dropdown-toggle menu__link" data-toggle="dropdown"
+									role="button" aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;&nbsp;${firstCategory}&nbsp;&nbsp;&nbsp;
 										<span class="caret"></span>
-									</a>
+								</a>
 									<ul class="dropdown-menu multi-column columns-3">
 										<div class="row">
 											<div class="col-sm-6 multi-gd-img1 multi-gd-text ">
@@ -144,15 +142,15 @@
 												<ul class="multi-column-dropdown">
 													<c:forEach var="category" items="${categoryList}">
 														<c:if test="${category.typeOne == firstCategory}">
-															<li><a href="mens.html">${category.typeTwo}</a></li>
+															<li><a
+																href="../goods_show!findGoodsByTypeId.action?typeId=${category.typeId}">${category.typeTwo}</a></li>
 														</c:if>
 													</c:forEach>
 												</ul>
 											</div>
 											<div class="clearfix"></div>
 										</div>
-									</ul>
-									</li>
+									</ul></li>
 							</c:forEach>
 						</ul>
 					</div>
@@ -165,14 +163,14 @@
 						<h3>
 							<div class="total">
 								<i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
-								<span class="simpleCart_total"></span> (<span
-									id="simpleCart_quantity" class="simpleCart_quantity"></span> 项)
+								<span id="cart_total">
+								</span>
 							</div>
 
 						</h3>
 					</a>
 					<p>
-						<a href="javascript:;" class="simpleCart_empty">清空购物车</a>
+						<a href="../cart!clearCart.action" class="simpleCart_empty">清空购物车</a>
 					</p>
 
 				</div>
@@ -209,14 +207,14 @@
 						</script>
 						<!-- //FlexSlider-->
 						<ul class="slides">
-							<c:forEach var="product" items="${goodsInfoList}">
-							<li data-thumb="../adminPage/images/${product.goodsPicUrl}">
+							<li
+								data-thumb="../adminPage/images/<s:property value="#session.productInfo.goodsPicUrl"></s:property>">
 								<div class="thumb-image">
-									<img src="../adminPage/images/${product.goodsPicUrl}" data-imagezoom="true"
-										class="img-responsive">
+									<img
+										src="../adminPage/images/<s:property value="#session.productInfo.goodsPicUrl"></s:property>"
+										data-imagezoom="true" class="img-responsive">
 								</div>
 							</li>
-							</c:forEach>
 						</ul>
 						<div class="clearfix"></div>
 					</div>
@@ -226,54 +224,44 @@
 				class="col-md-6 single-right-left simpleCart_shelfItem animated wow slideInRight animated"
 				data-wow-delay=".5s"
 				style="visibility: visible; animation-delay: 0.5s; animation-name: slideInRight;">
-				<h3>商品名称</h3>
-				<br>
+				<h3 id="title">
+					<s:property value="#session.productInfo.goodsTitle"></s:property>
+				</h3>
+				<br> <br>
+				<h5 style="font-size: 22">价格:</h5>
 				<p>
-					<span class="item_price">￥550</span>
+					<span class="item_price" id="price">￥<s:property
+							value="#session.productInfo.goodsPrice"></s:property></span>
 				</p>
-				<div class="color-quality">
-					<div class="color-quality-right">
-						<h5>尺码 :</h5>
-						<select id="country1" onChange="change_country(this.value)" class="frm-field required sect">
-							<c:forEach var="product" items="${goodsInfoList}">
-							<option value="null">${product.goodsSize}</option>
-							</c:forEach>
-						</select>
-					</div>
-				</div>
 				<div class="occasional">
-					<h5>颜色 :</h5>
-					<c:forEach var="product" items="${goodsInfoList}">
-					<div class="colr ert">
-						<label class="radio"><input type="radio" name="radio" checked=""><i></i>${product.goodsColor}</label>
-					</div>
-					</c:forEach>
-					<div class="clearfix"></div>
-				</div>
-
-				<div class="occasional">
-					<h5>数量 :</h5>
+					<h5 style="font-size: 22">数量 :</h5>
 					<div class="quantity">
 						<div class="quantity-select">
 							<div class="entry value-minus">&nbsp;</div>
-							<div class="entry value">
-								<span>1</span>
-							</div>
+							<input type="text" value="1" name="quantity" id="quantity"
+								style="height: 40px;width: 50px;text-align: center">
 							<div class="entry value-plus active">&nbsp;</div>
+							<font color="#909090" size="4">(&nbsp;库存<s:property
+									value="#session.productInfo.goodsAmount"></s:property>件&nbsp;)
+							</font>
 						</div>
 					</div>
 					<!--quantity-->
 					<script>
 						$('.value-plus').on('click', function() {
-							var divUpd = $(this).parent().find('.value'),
-								newVal = parseInt(divUpd.text(), 10) + 1;
-							divUpd.text(newVal);
+							var count = document.getElementById("quantity");
+							var value = parseInt(count.value, 10) + 1;
+							if(value <= ${session.productInfo.goodsAmount})
+								count.value=value;
+							else
+								count.value = ${session.productInfo.goodsAmount};
 						});
 					
 						$('.value-minus').on('click', function() {
-							var divUpd = $(this).parent().find('.value'),
-								newVal = parseInt(divUpd.text(), 10) - 1;
-							if (newVal >= 1) divUpd.text(newVal);
+							var count = document.getElementById("quantity");
+							var value = parseInt(count.value, 10) - 1;
+							if(value>=1) count.value=value;
+							else count.value=1;
 						});
 					</script>
 					<!--quantity-->
@@ -281,7 +269,9 @@
 				</div>
 
 				<div class="occasion-cart">
-					<a href="#" class="item_add hvr-outline-out button2">加入购物车</a>
+					<a href="JavaScript:;"
+						onclick="location='../cart!addCart.action?pid=${session.productInfo.goodsId}&quantity=' + document.getElementById('quantity').value"
+						class="item_add hvr-outline-out button2" id="addCart">加入购物车</a>
 				</div>
 
 			</div>
@@ -295,26 +285,25 @@
 					<ul id="myTab" class="nav nav-tabs" role="tablist">
 						<li role="presentation" class="active"><a href="#home"
 							id="home-tab" role="tab" data-toggle="tab" aria-controls="home"
-							aria-expanded="true">商品简介</a>
-						</li>
+							aria-expanded="true">商品简介</a></li>
 					</ul>
 					<div id="myTabContent" class="tab-content">
 						<div role="tabpanel"
 							class="tab-pane fade in active bootstrap-tab-text" id="home"
 							aria-labelledby="home-tab">
-							<h5>商品编号</h5>
-							<p>
-								商品详情Raw denim you probably haven't heard of them jean shorts
-								Austin. Nesciunt tofu stumptown aliqua, retro synth master
-								cleanse. Mustache cliche tempor, williamsburg carles vegan
-								helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
-								synth. Cosby sweater eu banh mi, qui irure terry richardson ex
-								squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis
-								cardigan american apparel, butcher voluptate nisi qui. <span>Duis
-									aute irure dolor in reprehenderit in voluptate velit esse
-									cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-									cupidatat non proident, sunt in culpa qui officia deserunt
-									mollit anim id est laborum.</span>
+							<h5 id="number">
+								商品颜色:
+								<s:property value="#session.productInfo.goodsColor"></s:property>
+							</h5>
+							<h5 id="number">
+								商品尺码:
+								<s:property value="#session.productInfo.goodsSize"></s:property>
+							</h5>
+
+							<p id="info">
+								商品详情<br>
+								<s:property value="#session.productInfo.goodsDescription"></s:property>
+								</span>
 							</p>
 						</div>
 					</div>

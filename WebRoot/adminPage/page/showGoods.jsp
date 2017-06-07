@@ -21,7 +21,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link type="text/css" rel="stylesheet" href="adminPage/css/style1.css" />
 <script type="text/javascript" src="adminPage/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="adminPage/js/menu1.js"></script>
-
+<script type="text/javascript">
+function del_confirm()
+{
+var r=confirm("确定要删除该商品吗？");
+if (r==true)
+  {
+    return true;
+  }
+else
+  {
+    return false;
+  }
+}
+</script>
 </head>
 
 <body>
@@ -74,9 +87,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span></span>订单管理
 					</h4>
 					<div class="list-item none">
-						<a href="adminPage/page/nopayOrder.jsp">待付款订单</a> <a href="adminPage/page/nosentOrder.jsp">待发货订单</a> <a href="adminPage/page/sentedOrder.jsp">已发货订单</a>
-						<a href="adminPage/page/finishedOrder.jsp">已完成订单</a> <a href="adminPage/page/noevalutionOrder.jsp">待评价订单</a> <a href="adminPage/page/allOrder.jsp">所有订单</a> <a
-							href="adminPage/page/closeOrder.jsp">已关闭订单</a>
+								<a href="order!findOrderByStatus.action?pageIndex=1&status=5">所有订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=0">待付款订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=1">待发货订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=2">已发货订单</a>
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=3">已完成订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=-1">已关闭订单</a>
 					</div>
 				</li>
 				</s:if>
@@ -116,7 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<%int cas = 0; %>
 			<div class="main">
 			  <div align="center" style=" margin:20px;">
-			   	 <p align="center"><a href="goods_show!categoryInfo.action">添加商品</a></p>
+			   	 <p align="center"><a href="goods_show!categoryInfo.action"><img src="adminPage/images/add_goods.png" title="添加商品"/></a></p>
 				 <table border ="1" cellspacing = "0" cellpadding = "0" align ="center" width = "100%">
                    <tr>
                      <th>序号</th><th>图片</th><th>一级类别</th><th>二级类别</th><th>标题</th><th>价格</th><th>尺码</th><th>颜色</th><th>操作</th>
@@ -136,7 +152,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        <td align="center">${product.goodsPrice}</td>
                        <td align="center">${product.goodsSize}</td>
                        <td align="center">${product.goodsColor}</td>
-                       <td align="center"><a href="goods_show!getGoodsInfor.action?goodsId=${product.goodsId}">修改</a>|<a href="goods_show!delete.action?goodsId=${product.goodsId}">删除</a></td>
+                       <td align="center">
+                           <a href="goods_show!getGoodsInfor.action?goodsId=${product.goodsId}"><img src="adminPage/images/update_user.png" title="修改商品"/></a>
+                           &nbsp;&nbsp;|&nbsp;&nbsp;
+                           <a onclick="return del_confirm();" href="goods_show!delete.action?goodsId=${product.goodsId}"><img src="adminPage/images/delete_user.png" title="删除商品"/></a></td>
                     </tr>
                    </c:forEach>
                  </table>

@@ -19,18 +19,29 @@
         <property name="orderTime" type="java.sql.Timestamp">
             <column name="orderTime" length="23" not-null="true" />
         </property>
-        
-        <many-to-one name="TAddress" class="com.zhbit.user.entity.TAddress" fetch="select" cascade="none">
-            <column name="addressId" not-null="true" />
-        </many-to-one>
-        <many-to-one name="TEmailuser" class="com.zhbit.user.entity.TEmailuser" fetch="select" cascade="none">
+        <property name="total" type="java.lang.Double">
+            <column name="total" precision="53" scale="0" not-null="true" />
+        </property>
+        <property name="address" type="java.lang.String">
+            <column name="address" not-null="true" />
+        </property>
+        <property name="phone" type="java.lang.String">
+            <column name="phone" not-null="true" />
+        </property>
+        <property name="receiver" type="java.lang.String">
+            <column name="receiver" not-null="true" />
+        </property>
+        <property name="postcode" type="java.lang.String">
+            <column name="postcode" not-null="true" />
+        </property>
+        <many-to-one name="emailuser" class="com.zhbit.user.entity.TEmailuser" fetch="select" lazy="false">
             <column name="userId" not-null="true" />
         </many-to-one>
-        <set name="goods" table="t_orderDetail" cascade="save-update">
+        <set name="orderItems" inverse="true" cascade="save-update,delete" lazy="false" order-by="orderItemId">
             <key>
-                <column name="orderNo" not-null="true" />
+                <column name="orderId" not-null="true" />
             </key>
-            <many-to-many column="goodsId" class="com.zhbit.goods.entity.TGoods" />
+            <one-to-many class="com.zhbit.order.entity.TOrderItem" />
         </set>
     </class>
 </hibernate-mapping>

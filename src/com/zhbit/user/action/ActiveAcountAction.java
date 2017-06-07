@@ -3,6 +3,7 @@ package com.zhbit.user.action;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
@@ -14,11 +15,11 @@ import com.zhbit.user.entity.TEmailuser;
 import com.zhbit.user.service.UserService;
 
 public class ActiveAcountAction extends ActionSupport{
+	@Resource
 	private UserService userService;
+	private String signupEmail;
+	private String validateCode;
 	public String active() throws Exception{
-		HttpServletRequest request =ServletActionContext.getRequest();
-		String signupEmail = request.getParameter("signupEmail");
-		String validateCode = request.getParameter("validateCode");
 		TEmailuser user = userService.findByEmail(signupEmail);
 		if(user != null){
 			if(user.getStatus() == 0){
@@ -27,10 +28,12 @@ public class ActiveAcountAction extends ActionSupport{
 					if(validateCode.equals(user.getValidateCode())){
 						user.setStatus(1);
 						userService.updateEmailUser(user);
+						ActionContext.getContext().getSession().put("user", user);
 					}else{
 						throw new Exception("validate code is not correct!");  
 					}
 				}else{
+					userService.deleteUserById(user.getUserId());
 					throw new Exception("validate code has been expired!");
 				}
 			}else{
@@ -41,10 +44,16 @@ public class ActiveAcountAction extends ActionSupport{
 		}
 		return SUCCESS;
 	}
-	public UserService getUserService() {
-		return userService;
+	public String getSignupEmail() {
+		return signupEmail;
 	}
-	public void setUserService(UserService userService) {
-		this.userService = userService;
+	public void setSignupEmail(String signupEmail) {
+		this.signupEmail = signupEmail;
+	}
+	public String getValidateCode() {
+		return validateCode;
+	}
+	public void setValidateCode(String validateCode) {
+		this.validateCode = validateCode;
 	}
 }

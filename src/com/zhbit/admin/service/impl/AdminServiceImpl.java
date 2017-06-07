@@ -72,4 +72,10 @@ public class AdminServiceImpl implements AdminService {
 	public TAdminInfo findByAdminId(Integer adminId) {
 		return adminDao.findByAdminId(adminId);
 	}
+	
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED)
+	public TAdminInfo findByAdminAccount(String adminAccount) {
+		return adminDao.findByAdminAccount(adminAccount);
+	}
 }

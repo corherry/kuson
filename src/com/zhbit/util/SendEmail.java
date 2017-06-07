@@ -13,11 +13,11 @@ import javax.mail.internet.MimeMessage;
  
 public class SendEmail {
 
-    public static final String HOST = "localhost";
+    public static final String HOST = "smtp.163.com";
     public static final String PROTOCOL = "smtp";   
     public static final int PORT = 25;
-    public static final String FROM = "kuson@shop.com";
-    public static final String PWD = "123888qq";
+    public static final String FROM = "kuson_shop@163.com";
+    public static final String PWD = "qq123888";
 
     private static Session getSession() {
         Properties props = new Properties();

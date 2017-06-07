@@ -25,8 +25,9 @@
 	    <property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 	<bean id="userService" class="com.zhbit.user.service.impl.UserServiceImpl"></bean>
-	
+	<bean id="userRegister" class="com.zhbit.user.action.EmailRegisterAction" scope="prototype"></bean>
 	<bean id="goodsAction" class="com.zhbit.goods.action.GoodsAction" scope="prototype"></bean>
+	<bean id="userActive" class="com.zhbit.user.action.ActiveAcountAction" scope="prototype"></bean>
 	<bean id="goodsDao" class="com.zhbit.goods.dao.impl.GoodsDaoImpl">
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
@@ -54,6 +55,14 @@
 	<bean id="userLogin" class="com.zhbit.user.action.LoginAction" scope="prototype"></bean>
 	<bean id="addressService" class="com.zhbit.user.service.impl.AddressServiceImpl"></bean>
 	<bean id="addressDao" class="com.zhbit.user.dao.impl.AddressDaoImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	<bean id="cartAction" class="com.zhbit.cart.action.CartAction" scope="prototype"></bean>
+	<bean id="cartItemService" class="com.zhbit.cart.service.impl.CartItemServiceImpl"></bean>
+	<bean id="cartItemDao" class="com.zhbit.cart.dao.impl.CartItemDaoImpl"></bean>
+	<bean id="orderAction" class="com.zhbit.order.action.OrderAction" scope="prototype"></bean>
+	<bean id="orderService" class="com.zhbit.order.service.impl.OrderServiceImpl"></bean>
+	<bean id="orderDao" class="com.zhbit.order.dao.impl.OrderDaoImpl">
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
 </beans>

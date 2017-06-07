@@ -26,8 +26,8 @@
 		<mapping resource="com/zhbit/user/entity/TAddress.hbm.xml" />
 		<mapping resource="com/zhbit/goods/entity/TEvaluation.hbm.xml" />
 		<mapping resource="com/zhbit/order/entity/TOrder.hbm.xml" />
-		<mapping resource="com/zhbit/order/entity/TOrderDetail.hbm.xml" />
 		<mapping resource="com/zhbit/category/entity/TType.hbm.xml" />
+		<mapping resource="com/zhbit/order/entity/TOrderItem.hbm.xml" />
 
 	</session-factory>
 

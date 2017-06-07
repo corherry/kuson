@@ -27,6 +27,15 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao{
 			return categoryList;
 		return null;
 	}
+	
+	@Override
+	public List<TType> checkFirstType(String firstType){
+		String hql = "from TType where typeOne = ?";
+		List<TType> categoryList = sessionFactory.getCurrentSession().createQuery(hql).setParameter(0, firstType).list();
+		if(categoryList != null && categoryList.size() > 0)
+			return categoryList;
+		return null;
+	}
 
 	@Override
 	public int findCount(String firstType) {
@@ -51,11 +60,13 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao{
 	}
 
 	@Override
-	public void update(TType type) {
+	public TType update(TType type) {
 		String hql = "from TType where typeOne = ? and typeTwo = ?";
 		int size = sessionFactory.getCurrentSession().createQuery(hql).setParameter(0, type.getTypeOne()).setParameter(1, type.getTypeTwo()).list().size();
-		if(size == 0)
-			sessionFactory.getCurrentSession().merge(type);
+		if(size != 0)
+			return null;
+		sessionFactory.getCurrentSession().merge(type);
+		return type;
 	}
 
 	@Override
@@ -116,6 +127,7 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao{
 		TType type = (TType) sessionFactory.getCurrentSession().get(TType.class, typeId);
 		return type;
 	}
+	
 
 	@Override
 	public List<String> findFirstType() {

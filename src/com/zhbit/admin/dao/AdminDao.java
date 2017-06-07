@@ -12,4 +12,5 @@ public interface AdminDao{
 	public TAdminInfo findByAdminId(Integer adminId);
 	public void add(TAdminInfo admin);
 	public void update(TAdminInfo admin);
+	public TAdminInfo findByAdminAccount(String adminAccount);
 }

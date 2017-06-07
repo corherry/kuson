@@ -38,12 +38,6 @@
         <many-to-one name="type" class="com.zhbit.category.entity.TType" lazy="false" fetch="select" cascade="save-update">
             <column name="typeId" not-null="true" />
         </many-to-one>
-        <set name="orders" table="t_orderDetail" cascade="save-update">
-            <key>
-                <column name="goodsId" not-null="true" />
-            </key>
-            <many-to-many column="orderNo" class="com.zhbit.order.entity.TOrder" />
-        </set>
         <set name="TEvaluations" inverse="true" cascade="all">
             <key>
                 <column name="goodsId" not-null="true" />

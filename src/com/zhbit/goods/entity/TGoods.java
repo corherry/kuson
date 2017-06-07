@@ -24,7 +24,6 @@ public class TGoods implements java.io.Serializable {
 	private String goodsPicUrl;
 	private Double goodsPrice;
 	private TType type;
-	private Set<TOrder> orders = new HashSet<TOrder>();
 	private Set<TEvaluation> TEvaluations = new HashSet<TEvaluation>();
 
 	// Constructors
@@ -47,7 +46,7 @@ public class TGoods implements java.io.Serializable {
 
 	/** full constructor */
 	public TGoods(Integer goodsId, TType TType, String goodsNo, String goodsTitle, String goodsSize, String goodsColor,
-			Integer goodsAmount, String goodsDescription, String goodsPicUrl, Double goodsPrice, Set orders,
+			Integer goodsAmount, String goodsDescription, String goodsPicUrl, Double goodsPrice,
 			Set TEvaluations) {
 		this.goodsId = goodsId;
 		this.type = TType;
@@ -59,7 +58,6 @@ public class TGoods implements java.io.Serializable {
 		this.goodsDescription = goodsDescription;
 		this.goodsPicUrl = goodsPicUrl;
 		this.goodsPrice = goodsPrice;
-		this.orders = orders;
 		this.TEvaluations = TEvaluations;
 	}
 
@@ -162,12 +160,5 @@ public class TGoods implements java.io.Serializable {
 		this.TEvaluations = TEvaluations;
 	}
 
-	public Set<TOrder> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(Set<TOrder> orders) {
-		this.orders = orders;
-	}
 
 }

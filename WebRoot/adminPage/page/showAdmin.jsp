@@ -21,7 +21,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="adminPage/js/menu1.js"></script>
 <link rel="Stylesheet" type="text/css"
 	href="adminPage/css/loginDialog.css" />
-
+<script type="text/javascript">
+function del_confirm()
+{
+var r=confirm("确定要删除该管理员吗？");
+if (r==true)
+  {
+    return true;
+  }
+else
+  {
+    return false;
+  }
+}
+</script>
 </head>
 
 <body>
@@ -76,13 +89,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<span></span>订单管理
 						</h4>
 						<div class="list-item none">
-							<a href="adminPage/page/nopayOrder.jsp">待付款订单</a> <a
-								href="adminPage/page/nosentOrder.jsp">待发货订单</a> <a
-								href="adminPage/page/sentedOrder.jsp">已发货订单</a> <a
-								href="adminPage/page/finishedOrder.jsp">已完成订单</a> <a
-								href="adminPage/page/noevalutionOrder.jsp">待评价订单</a> <a
-								href="adminPage/page/allOrder.jsp">所有订单</a> <a
-								href="adminPage/page/closeOrder.jsp">已关闭订单</a>
+									<a href="order!findOrderByStatus.action?pageIndex=1&status=5">所有订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=0">待付款订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=1">待发货订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=2">已发货订单</a>
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=3">已完成订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=-1">已关闭订单</a>
 						</div>
 					</li>
 				</s:if>
@@ -154,8 +166,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<c:if test="${admin.adminAuthority==3}">订单配送员</c:if>
 								</td>
 								<td align="center">
-									<a href="admin_show!findAdminById?adminId=${admin.adminId}"><img src="adminPage/images/update_user.png" title="修改管理员"/></a>&nbsp;&nbsp;
-									<a href="admin_show!delete.action?adminId=${admin.adminId}&adminAuthority=${admin.adminAuthority}"><img src="adminPage/images/delete_user.png" title="删除管理员"/></a>
+									<a href="admin_show!findAdminById?adminId=${admin.adminId}"><img src="adminPage/images/update_user.png" title="修改管理员"/></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+									<a onclick="return del_confirm();" href="admin_show!delete.action?adminId=${admin.adminId}&adminAuthority=${admin.adminAuthority}"><img src="adminPage/images/delete_user.png" title="删除管理员"/></a>
 								</td>
 							</tr>	 
 						</c:forEach>

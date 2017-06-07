@@ -74,13 +74,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span></span>订单管理
 					</h4>
 					<div class="list-item none">
-						<a href="adminPage/page/nopayOrder.jsp">待付款订单</a> 
-						<a href="adminPage/page/nosentOrder.jsp">待发货订单</a>
-						<a href="adminPage/page/sentedOrder.jsp">已发货订单</a>
-						<a href="adminPage/page/finishedOrder.jsp">已完成订单</a>
-						<a href="adminPage/page/noevalutionOrder.jsp">待评价订单</a> 
-						<a href="adminPage/page/allOrder.jsp">所有订单</a> 
-						<a href="adminPage/page/closeOrder.jsp">已关闭订单</a>
+								<a href="order!findOrderByStatus.action?pageIndex=1&status=5">所有订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=0">待付款订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=1">待发货订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=2">已发货订单</a>
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=3">已完成订单</a> 
+						<a href="order!findOrderByStatus.action?pageIndex=1&status=-1">已关闭订单</a>
 					</div>
 				</li>
 				</s:if>
@@ -122,7 +121,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<s:form action="category!update.action" method="post" namespace="/">
 					<s:hidden name="typeInfo.typeId" value="%{#session.category.typeId}"></s:hidden>
 					<s:hidden name="firstType" value="%{#session.category.typeOne}"></s:hidden>
-					<s:textfield name="typeInfo.typeOne" label="一级分类" value="%{#session.category.typeOne}" readonly="readonly"></s:textfield>
+					<s:textfield name="typeInfo.typeOne" label="一级分类" value="%{#session.category.typeOne}" readonly="true"></s:textfield>
 					<s:textfield name="typeInfo.typeTwo" label="二级分类" size="20" value="%{#session.category.typeTwo}"/>
 					<s:submit value="修改" align="center"></s:submit>
 				 </s:form>
