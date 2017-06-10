@@ -1,10 +1,5 @@
 package com.zhbit.user.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import com.zhbit.order.entity.TOrder;
-
 /**
  * TAddress entity. @author MyEclipse Persistence Tools
  */
@@ -14,12 +9,10 @@ public class TAddress implements java.io.Serializable {
 	// Fields
 
 	private Integer addressId;
+	private TEmailuser user;
 	private String receiver;
 	private String phone;
 	private String address;
-	private String postcode;
-	private TEmailuser TEmailuser;
-	private Set<TOrder> TOrders = new HashSet<TOrder>();
 
 	// Constructors
 
@@ -27,30 +20,6 @@ public class TAddress implements java.io.Serializable {
 	public TAddress() {
 	}
 
-	/** minimal constructor */
-	public TAddress(Integer addressId, TEmailuser TEmailuser, String receiver, String phone, String address,
-			String postcode) {
-		this.addressId = addressId;
-		this.TEmailuser = TEmailuser;
-		this.receiver = receiver;
-		this.phone = phone;
-		this.address = address;
-		this.postcode = postcode;
-	}
-
-	/** full constructor */
-	public TAddress(Integer addressId, TEmailuser TEmailuser, String receiver, String phone, String address,
-			String postcode, Set TOrders) {
-		this.addressId = addressId;
-		this.TEmailuser = TEmailuser;
-		this.receiver = receiver;
-		this.phone = phone;
-		this.address = address;
-		this.postcode = postcode;
-		this.TOrders = TOrders;
-	}
-
-	// Property accessors
 
 	public Integer getAddressId() {
 		return this.addressId;
@@ -58,14 +27,6 @@ public class TAddress implements java.io.Serializable {
 
 	public void setAddressId(Integer addressId) {
 		this.addressId = addressId;
-	}
-
-	public TEmailuser getTEmailuser() {
-		return this.TEmailuser;
-	}
-
-	public void setTEmailuser(TEmailuser TEmailuser) {
-		this.TEmailuser = TEmailuser;
 	}
 
 	public String getReceiver() {
@@ -92,20 +53,12 @@ public class TAddress implements java.io.Serializable {
 		this.address = address;
 	}
 
-	public String getPostcode() {
-		return this.postcode;
+	public TEmailuser getUser() {
+		return user;
 	}
 
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
-	}
-
-	public Set getTOrders() {
-		return this.TOrders;
-	}
-
-	public void setTOrders(Set TOrders) {
-		this.TOrders = TOrders;
+	public void setUser(TEmailuser user) {
+		this.user = user;
 	}
 
 }

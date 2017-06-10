@@ -38,16 +38,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="header">
 	<div class="container">
 		<ul>
-		<c:if test="${user.username==null}">
-            <li>Hi,欢迎来到酷森旗舰店</li>
-			<li><a href="#" data-toggle="modal" data-target="#myModal402"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>请登录</a></li>
-			<li><a href="#" data-toggle="modal" data-target="#myModal401"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>免费注册</a></li>
-		</c:if>
-		<c:if test="${user.username!=null}">
-		<li>欢迎您：</li>
-		<li><s:property value="#session.user.username"></s:property></li>
-		<li><a href="logoff"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>退出</a></li>
-		</c:if>
+		<li>Hi,欢迎来到酷森旗舰店</li>
+				<c:if test="${user.username==null}">
+					<li><a href="#" data-toggle="modal" data-target="#myModal402"><span
+							class="glyphicon glyphicon-time" aria-hidden="true"></span>请登录</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#myModal401"><span
+							class="glyphicon glyphicon-envelope" aria-hidden="true"></span>免费注册</a></li>
+				</c:if>
+				<c:if test="${user.username!=null}">
+					<li>欢迎您：</li>
+					<li><s:property value="#session.user.username"></s:property></li>
+					<li><a href="../user_login!logout.action"><span
+							class="glyphicon glyphicon-time" aria-hidden="true"></span>退出</a></li>
+				</c:if>
 		</ul>
 	</div>
 </div>
@@ -59,38 +62,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<h1><a href="index.html"><img src="images/logo-kuson01.png"></a></h1>
 	  </div>
 		<div class="col-md-6 header-middle">
-			<form>
-				<div class="search">
-					<input type="search" value="Search" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'Search';}" required>
-				</div>
-				<div class="section_room">
-					<select id="country" onChange="change_country(this.value)" class="frm-field required">
-						<option value="null">全品类</option>
-						<option value="null">男装</option>     
-						<option value="AX">女装</option>
-						<option value="AX">童装</option>
-						<option value="AX">户外</option>
-						<option value="AX">内衣</option>
-					</select>
-				</div>
-				<div class="sear-sub">
-					<input type="submit" value=" ">
-				</div>
-				<div class="clearfix"></div>
-			</form>
 		</div>
 		<div class="col-md-3 header-right footer-bottom">
 			<ul>
-			    <c:if test="${user.username==null }">
-			    <li><a href="#" data-toggle="modal" data-target="#myModal402" class="use1"><span>Manage</span></a></li>
-			    </c:if>
-			    <c:if test="${user.username!=null }">
-			    <li><a href="personal.jsp" class="use1"><span>Manage</span></a></li>
-			    </c:if>
-				<li><a class="fb" href="#"></a></li>
-				<li><a class="twi" href="#"></a></li>
-				<li><a class="insta" href="#"></a></li>
-				<li><a class="you" href="#"></a></li>
+				<c:if test="${user.username!=null}">
+					<li><a href="personal.jsp" class="use1"><span>Manage</span></a></li>
+					</c:if>
+					<c:if test="${user.username==null}">
+					<li><a href="login.jsp" class="use1"><span>Manage</span></a></li>
+					</c:if>
+					<li><a class="fb" href="#"></a></li>
+					<li><a class="twi" href="#"></a></li>
+					<li><a class="insta" href="#"></a></li>
+					<li><a class="you" href="#"></a></li>
 			</ul>
 		</div>
 		<div class="clearfix"></div>
@@ -99,117 +83,78 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- //header-bot -->
 <!-- banner -->
 <div class="ban-top">
-	<div class="container">
-		<div class="top_nav_left">
-			<nav class="navbar navbar-default">
-			  <div class="container-fluid">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				  </button>
+		<div class="container">
+			<div class="top_nav_left">
+				<nav class="navbar navbar-default">
+				<div class="container-fluid">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed"
+							data-toggle="collapse"
+							data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span> <span
+								class="icon-bar"></span> <span class="icon-bar"></span> <span
+								class="icon-bar"></span>
+						</button>
+					</div>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse menu--shylock"
+						id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav menu__list">
+							<li class="active menu__item menu__item--current"><a
+								class="menu__link" href="../index.action">&nbsp;首
+									&nbsp;页&nbsp; <span class="sr-only">(current)</span>
+							</a></li>
+							<c:forEach var="firstCategory" items="${firstCategoryList}">
+								<li class="dropdown menu__item"><a href="#"
+									class="dropdown-toggle menu__link" data-toggle="dropdown"
+									role="button" aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;&nbsp;${firstCategory}&nbsp;&nbsp;&nbsp;
+										<span class="caret"></span>
+								</a>
+									<ul class="dropdown-menu multi-column columns-3">
+										<div class="row">
+											<div class="col-sm-6 multi-gd-img1 multi-gd-text ">
+												<a href="mens.html"><img src="images/woo1.jpg" alt=" " /></a>
+											</div>
+											<div class="col-sm-3 multi-gd-img" style="float:right;">
+												<ul class="multi-column-dropdown">
+													<c:forEach var="category" items="${categoryList}">
+														<c:if test="${category.typeOne == firstCategory}">
+															<li><a
+																href="../goods_show!findGoodsByTypeId.action?typeId=${category.typeId}">${category.typeTwo}</a></li>
+														</c:if>
+													</c:forEach>
+												</ul>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+									</ul></li>
+							</c:forEach>
+						</ul>
+					</div>
 				</div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
-				  <ul class="nav navbar-nav menu__list">
-					<li class="active menu__item menu__item--current"><a class="menu__link" href="index.jsp">&nbsp;首 &nbsp;页&nbsp; <span class="sr-only">(current)</span></a></li>
-					<li class="dropdown menu__item">
-						<a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;&nbsp;男&nbsp;装&nbsp;&nbsp;&nbsp; <span class="caret"></span></a>
-							<ul class="dropdown-menu multi-column columns-3">
-								<div class="row">
-									<div class="col-sm-6 multi-gd-img1 multi-gd-text ">
-										<a href="mens.html"><img src="images/woo1.jpg" alt=" "/></a>
-									</div>
-									<div class="col-sm-3 multi-gd-img">
-										<ul class="multi-column-dropdown">
-											<li><a href="mens.jsp">Clothing</a></li>
-											<li><a href="mens.jsp">Wallets</a></li>
-											<li><a href="mens.jsp">Footwear</a></li>
-											<li><a href="mens.jsp">Watches</a></li>
-											<li><a href="mens.jsp">Accessories</a></li>
-											<li><a href="mens.jsp">Bags</a></li>
-											<li><a href="mens.jsp">Caps & Hats</a></li>
-										</ul>
-									</div>
-									<div class="col-sm-3 multi-gd-img">
-										<ul class="multi-column-dropdown">
-											<li><a href="mens.jsp">Jewellery</a></li>
-											<li><a href="mens.jsp">Sunglasses</a></li>
-											<li><a href="mens.jsp">Perfumes</a></li>
-											<li><a href="mens.jsp">Beauty</a></li>
-											<li><a href="mens.jsp">Shirts</a></li>
-											<li><a href="mens.jsp">Sunglasses</a></li>
-											<li><a href="mens.jsp">Swimwear</a></li>
-										</ul>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-							</ul>
-					</li>
-					<li class="dropdown menu__item">
-						<a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">&nbsp;&nbsp;&nbsp;女&nbsp;装&nbsp;&nbsp;&nbsp; <span class="caret"></span></a>
-							<ul class="dropdown-menu multi-column columns-3">
-								<div class="row">
-									<div class="col-sm-3 multi-gd-img">
-										<ul class="multi-column-dropdown">
-											<li><a href="womens.jsp">Clothing</a></li>
-											<li><a href="womens.jsp">Wallets</a></li>
-											<li><a href="womens.jsp">Footwear</a></li>
-											<li><a href="womens.jsp">Watches</a></li>
-											<li><a href="womens.jsp">Accessories</a></li>
-											<li><a href="womens.jsp">Bags</a></li>
-											<li><a href="womens.jsp">Caps & Hats</a></li>
-										</ul>
-									</div>
-									<div class="col-sm-3 multi-gd-img">
-										<ul class="multi-column-dropdown">
-											<li><a href="womens.jsp">Jewellery</a></li>
-											<li><a href="womens.jsp">Sunglasses</a></li>
-											<li><a href="womens.jsp">Perfumes</a></li>
-											<li><a href="womens.jsp">Beauty</a></li>
-											<li><a href="womens.jsp">Shirts</a></li>
-											<li><a href="womens.jsp">Sunglasses</a></li>
-											<li><a href="womens.jsp">Swimwear</a></li>
-										</ul>
-									</div>
-									<div class="col-sm-6 multi-gd-img multi-gd-text ">
-										<a href="womens.jsp"><img src="images/woo.jpg" alt=" "/></a>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-							</ul>
-					</li>
-					<li class=" menu__item"><a class="menu__link" href="electronics.html">&nbsp;&nbsp;&nbsp;户&nbsp;外&nbsp;&nbsp;&nbsp;</a></li>
-					<li class=" menu__item"><a class="menu__link" href="codes.html">&nbsp;&nbsp;&nbsp;童&nbsp;装&nbsp;&nbsp;&nbsp;</a></li>
-					<li class=" menu__item"><a class="menu__link" href="contact.html">&nbsp;&nbsp;&nbsp;内&nbsp;衣&nbsp;&nbsp;&nbsp;</a></li>
-				  </ul>
-				</div>
-			  </div>
-			</nav>	
-		</div>
-		<div class="top_nav_right">
-			<div class="cart box_1">
-						<a href="checkout.html">
-							<h3> <div class="total">
+				</nav>
+			</div>
+			<div class="top_nav_right">
+				<div class="cart box_1">
+					<a href="../cart!lookCart.action">
+						<h3>
+							<div class="total">
 								<i class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
-								<span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> 项)</div>
-								
-							</h3>
-						</a>
-						<c:if test="${user.username==null }">
-						<p><a href="#" data-toggle="modal" data-target="#myModal402" class="simpleCart_empty">购物车</a></p>
-						</c:if>
-						<c:if test="${user.username!=null }">
-						<p><a href="cart.jsp" class="simpleCart_empty">购物车</a></p>
-						</c:if>
-			</div>	
+								<span id="cart_total">
+								</span>
+							</div>
+						</h3>
+					</a>
+					<p>
+						<a href="../cart!clearCart.action" class="simpleCart_empty">清空购物车</a>
+					</p>
+
+				</div>
+			</div>
+			<div class="clearfix"></div>
 		</div>
-		<div class="clearfix"></div>
 	</div>
-</div>
 <!-- //banner-top -->
 <!-- banner -->
 <div class="page-head">
@@ -227,33 +172,67 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul class="tree-list-pad">
 					<li><input type="checkbox" checked="checked" id="item-0" /><label for="item-0"><span></span>个人资料</label>
 						<ul>
-							<li><a href="information.jsp" target="treemain">个人信息</a></li>
-							<li><a href="updatainfo.jsp" target="treemain">修改姓名</a></li>
+							<li><a href="personal.jsp" target="treemain">个人信息</a></li>
                             <li><a href="resetpassword.jsp" target="treemain">修改密码</a></li>
 						</ul>
 					</li>
 					<li><input type="checkbox" id="item-1" checked="checked" /><label for="item-1">订单管理</label>
 						<ul>
-							<li><a href="orderlist.jsp" target="treemain">我的订单</a></li>
+							<li><a href="../order!findOrderByUid.action" target="treemain">我的订单</a></li>
 						</ul>
 					</li>
 					<li><input type="checkbox" checked="checked" id="item-2" /><label for="item-2">收货地址</label>
 						<ul>
-							<li><a href="adressinfo.jsp" target="treemain">查看信息</a></li>
-							<li><a href="addadress.jsp" target="treemain">增加信息</a></li>
+							<li><a href="../show_address!showAddress.action" target="treemain">查看地址</a></li>
+							<li><a href="addaddress.jsp?op=0">添加地址</a></li>
        					</ul>
-					</li>
-                    <li><input type="checkbox" checked="checked" id="item-3" /><label for="item-3">钱包</label>
-						<ul>
-							<li><a href="wallet.jsp" target="treemain">交易记录</a></li>
-						</ul>
 					</li>
 				</ul>
 			</div>
 			<div class="clearfix"></div>
 		</div>
 		<div class="col-md-8 products-right iframe01">
-             <iframe name="treemain" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto" class="iframe01" > </iframe>
+             <div class="bs-docs-example">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th colspan="2" align="center">个人信息</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>用户邮箱</td>
+                  <td>${user.email}</td>
+                </tr>
+                <tr>
+                  <td>姓名</td>
+                  <td><input type="text" id="input" value="${user.username}" style="border-style:none" disabled="true"><input type="button" id="btn" onclick="update()" value="编辑"></td>
+                </tr>
+                <tr>
+                  <td>余额</td>
+                  <td>${user.money}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <script type="text/javascript">
+          	function update(){
+          		var btn = document.getElementById('btn');
+          		if(btn.value == '编辑'){
+          			btn.value='保存';
+          			document.getElementById('input').disabled = false;
+          			document.getElementById('input').style.border='1px solid #000000';
+          		}else if(document.getElementById('input').value.length!=0){
+          			btn.value='编辑';
+          			document.getElementById('input').disabled=true;
+          			document.getElementById('input').style.border=0;
+          			alert("确定要修改吗？")
+          			window.parent.location.href="../user!updateName.action?username=" + document.getElementById('input').value;
+          		}else{
+          			alert("姓名不能为空!")
+          		}
+          	}
+          </script>
 		</div>
 		
 	</div>
@@ -316,86 +295,143 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <!-- //footer -->
 <!-- login -->
-			<div class="modal fade" id="myModal401" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content modal-info">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
-						</div>
-						<div class="modal-body modal-spa">
-							<div class="login-grids">
-								<div class="login">
-									<div class="login-bottom">
-										<h3>免费注册</h3>
-										<form>
-											<div class="sign-up">
-                                               
-											  <h4><img class="img1" src="images/envelope.png" /></h4>
-												<input type="text" value="邮箱" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = '邮箱';}" required>	
-											</div>
-											<div class="sign-up">
-												<h4><img class="img1" src="images/password05.png" /></h4>
-												<input type="password" value="Password" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'Password';}" required>
-												
-											</div>
-											<div class="sign-up">
-												<h4><img class="img1" src="images/password06.png" /></h4>
-												<input type="password" value="Password" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'Password';}" required>
-												
-											</div>
-											<div class="sign-up">
-												<input type="submit" value="注册" >
-											</div>
-											
-										</form>
+	<div class="modal fade" id="myModal401" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content modal-info">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body modal-spa">
+					<div class="login-grids">
+						<div class="login">
+							<div class="login-bottom">
+								<h3>免费注册</h3>
+								<form  action="../user_register!register.action" onsubmit="return check()">
+									<div class="sign-up">
+
+										<h4>
+											<img class="img1" src="images/person07.png" />
+										</h4>
+										<input  type="text" name="user.username" value="姓名" id="username"
+											onFocus="this.value = '';"
+											onBlur="if (this.value == '') {this.value = '姓名';}" style="color:#858585;" required>
 									</div>
-									<div class="clearfix"></div>
-								</div>
+									<div class="sign-up">
+
+										<h4>
+											<img class="img1" src="images/envelope.png" />
+										</h4>
+										<input type="text" name="user.email" value="邮箱" id="email"
+											onFocus="this.value = '';"
+											onBlur="if (this.value == '') {this.value = '邮箱';}" style="color:#858585;" required>
+									</div>
+									<div class="sign-up">
+										<h4>
+											<img class="img1" src="images/password05.png" />
+										</h4>
+										<input type="password" name="user.password" value=""  id="password"
+											onFocus="this.value = '';" style="color:#858585;" required>
+
+									</div>
+									<div class="sign-up">
+										<h4>
+											<img class="img1" src="images/password06.png" />
+										</h4>
+										<input type="password" name="rePassword" value="" id="repassword"
+											onFocus="this.value = '';" style="color:#858585;" required>
+
+									</div>
+									<div class="sign-up">
+										<input type="submit" value="注册">
+									</div>
+
+								</form>
 							</div>
+							<div class="clearfix"></div>
+							<script type="text/javascript">
+								function check(){
+								    var name= document.getElementById("username");
+								    var email = document.getElementById("email");
+									var psw = document.getElementById("password");
+									var repass = document.getElementById("repassword");
+									var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+									if(email.value=="邮箱"){
+									   alert("邮箱不能为空!");
+									   return false;
+									}else if(myreg.test(email.value) == false){
+										alert("请输入正确的邮箱");
+										return false;
+									}else if(name.value=="姓名"){
+									  alert("姓名不能为空！");
+									  return false;
+									}else if(psw.value==""){
+										alert("密码不能为空!");
+										return false;
+									}else if(repass.value==""){
+										alert("请再次输入确认密码!");
+										return false;
+									}else if(psw.value != repass.value){
+										alert("密码不匹配!");
+										return false;
+									}
+									return true;
+								}
+							</script>
 						</div>
 					</div>
 				</div>
 			</div>
-<!-- //login -->
-<!-- login -->
-			<div class="modal fade" id="myModal402" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content modal-info">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
-						</div>
-						<div class="modal-body modal-spa">
-							<div class="login-grids">
-								<div class="login">
-									<div class="login-right">
-										<h3>密码登录</h3>
-										<form>
-											<div class="sign-in">
-												<img class="img1" src="images/envelope.png" />
-												<input type="text" value="邮箱" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = '邮箱';}" required>	           
-											</div>
-											<div class="sign-in">
-												<h4><img class="img1" src="images/password05.png" /></h4>
-												<input type="password" value="Password" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'Password';}" required>
-												<a href="#">忘记密码?</a>
-											</div>
-											<div class="single-bottom">
-												<input type="checkbox"  id="brand" value="">
-												<label for="brand"><span></span>记住密码.</label>
-											</div>
-											<div class="sign-in">
-												<input type="submit" value="登录" >
-											</div>
-										</form>
-									</div>
-									<div class="clearfix"></div>
-								</div>
+		</div>
+	</div>
+	<!-- //login -->
+	<!-- login -->
+	<div class="modal fade" id="myModal402" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content modal-info">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body modal-spa">
+					<div class="login-grids">
+						<div class="login">
+							<div class="login-bottom">
+								<h3>用户登陆</h3>
 								
+								<s:form  action="../user_login!login.action" method="post"
+									theme="simple" namespace="/">
+									<div class="sign-up">
+										<h4>
+											<img class="img1" src="images/envelope.png" />
+										</h4>
+										<s:textfield name="user.email" label="邮箱" style="color:#858585;" />
+									</div>
+									<div class="sign-up">
+										<h4>
+											<img class="img1" src="images/password05.png" />
+										</h4>
+										<s:password name="user.password" label="密码" style="color:#858585;" />
+									</div>
+									
+									<div class="sign-up">
+										<s:submit value="登陆" />
+									</div>
+								</s:form>
 							</div>
+							<div class="clearfix"></div>
 						</div>
 					</div>
 				</div>
 			</div>
-<!-- //login -->
+		</div>
+	</div>
+	<!-- //login -->
 </body>
 </html>

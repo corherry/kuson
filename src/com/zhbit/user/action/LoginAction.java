@@ -6,6 +6,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.zhbit.user.entity.TEmailuser;
 import com.zhbit.user.service.UserService;
+import com.zhbit.util.MD5Util;
 
 public class LoginAction extends ActionSupport{
 
@@ -17,6 +18,8 @@ public class LoginAction extends ActionSupport{
 		TEmailuser emailuser = userService.findByEmail(user.getEmail());
 		if(emailuser != null){
 			if(emailuser.getStatus() == 1){
+				user.setPassword(MD5Util.encode2hex(user.getPassword()));
+				System.out.println(MD5Util.encode2hex(user.getPassword()));
 				emailuser = userService.checkEmailUser(user);
 				if(emailuser != null){
 					this.setUser(emailuser);
@@ -37,7 +40,7 @@ public class LoginAction extends ActionSupport{
 		}
 	}
 	
-	public String logoff()throws Exception{
+	public String logout()throws Exception{
 		ActionContext.getContext().getSession().remove("user");
 		return SUCCESS;
 	}

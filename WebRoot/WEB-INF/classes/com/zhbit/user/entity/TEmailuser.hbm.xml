@@ -43,7 +43,7 @@
             </key>
             <one-to-many class="com.zhbit.goods.entity.TEvaluation" />
         </set>
-        <set name="TOrders" inverse="true" cascade="all">
+        <set name="TOrders" inverse="true" cascade="save-update, delete">
             <key>
                 <column name="userId" not-null="true" />
             </key>

@@ -10,4 +10,7 @@ public interface OrderDao {
 	public int findCountByStatus(int status);
 	public TOrder findOrderByOid(Integer oid);
 	public void update(TOrder order);
+	public void addOrder(TOrder order);
+	public int findCountByUid(Integer uid);
+	public List<TOrder> findOrderByUid(int begin, int limit, Integer uid);
 }

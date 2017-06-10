@@ -2,6 +2,15 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
 	<package name="admin" extends="struts-default,json-default" namespace="/">
+		<interceptors>
+			<interceptor name="authority" 
+				class="com.zhbit.interceptor.LoginInterceptor">
+			</interceptor>
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="authority" />
+			</interceptor-stack>
+		</interceptors>
 		<global-results>
 			<!-- 省去其他公共配置 -->
 			<result name="stream" type="stream">
@@ -10,13 +19,14 @@
 		</global-results>
 		<action name="user_register" class="userRegister">
 			<result name="success" type="redirect">/userPage/index.jsp</result>
-		</action>
+			<result name="input" type="redirect" >/userPage/register.jsp</result>
+		</action> 
 		<action name="user_active" class="userActive">
 			<result name="success" type="redirect">/userPage/index.jsp</result>
 		</action>
 		<action name="admin_login" class="adminLogin">
 			<result name="success" type="redirect">/adminPage/index.jsp</result>
-			<result name="login" type="redirect">/adminPage/page/login.jsp</result>
+			<result name="login" type="redirect">/adminPage/page/index.jsp</result>
 		</action>
 		<action name="admin_resetPassword" class="adminResetPwd">
 			<result name="input">/adminPage/page/resetPassword.jsp</result>
@@ -56,7 +66,13 @@
 			<result name="category">/adminPage/page/addGoods.jsp</result>
 			<result name="productInfo" type="redirect">/userPage/single.jsp</result>
 			<result name="showByCaterory" type="redirect">/userPage/index.jsp</result>
+			<result name="firstCategory" type="redirect">/userPage/index.jsp</result>
 			<result name="input">/adminPage/page/addGoods.jsp</result>
+		</action>
+		<action name="goods_update" class="goodsAction">
+			<param name="savePath">/adminPage/images</param>
+		    <result name="success">/adminPage/page/showGoods.jsp</result>
+		    <result name="input">/adminPage/page/updateGoods.jsp</result>
 		</action>
 		<action name="user_show" class="showUser">
 			<result name="input">/adminPage/page/updateUser.jsp</result>
@@ -66,19 +82,45 @@
 		</action>
 		<action name="user_login" class="userLogin">
 			<result name="success" type="redirect">/userPage/index.jsp</result>
-			<result name="login" type="redirect">/userPage/index.jsp</result>
+			<result name="login" type="redirect">/userPage/login.jsp</result>
 		</action>
 		<action name="index" class="indexAction">
 			<result name="success" type="redirect">/userPage/index.jsp</result>
 		</action>
-		<action name="address_add" class="addAddress">
+		<action name="address" class="addressAction">
 			<result name="success">/userPage/addadress.jsp</result>
+			<result name="showUserAddress" type="redirect">/userPage/commitOrder.jsp</result>
+			<result name="login" type="redirect">/userPage/login.jsp</result>
+			<interceptor-ref name="mydefault" />
+		</action>
+		<action name="address_add" class="addressAction">
+		    <result name="success" type="redirect">/userPage/showAddress.jsp</result>
+		    <result name="showUserAddress" type="redirect">/userPage/commitOrder.jsp</result>
+		    <result name="input">/userPage/addadress.jsp</result>
+		</action>
+		<action name="show_address" class="addressAction">
+		    <result name="success" type="redirect">/userPage/showAddress.jsp</result>
 		</action>
 		<action name="cart" class="cartAction">
 			<result name="lookCart" type="redirect">/userPage/cart.jsp</result>
 		</action>
 		<action name="order" class="orderAction">
 			<result name="show">/adminPage/page/showOrder.jsp</result>
+			<result name="orderlist" type="redirect">/userPage/orderlist.jsp</result>
+			<result name="add" type="redirect">/userPage/payOrder.jsp</result>
+			<result name="pay" type="redirect">/userPage/Success.jsp</result>
+			<result name="cancel" type="redirect">index.jsp</result>
 		</action>
+		<action name="userOrder" class="orderAction">
+			<result name="show" type="redirect">/userPage/orderlist.jsp</result>
+		</action>
+		<action name="user" class="userAction">
+			<result name="personal" type="redirect">/userPage/personal.jsp</result>
+		</action>
+		<action name="user_resetPassword" class="userResetPwd" >
+		    <result name="success" type="redirect">/userPage/resetpassword.jsp</result>
+		    <result name="input">/userPage/resetpassword.jsp</result>
+		</action>
+		
 	</package>
 </struts>    

@@ -53,5 +53,21 @@ public class OrderDaoImpl extends HibernateDaoSupport implements OrderDao {
 	public void update(TOrder order) {
 		sessionFactory.getCurrentSession().merge(order);
 	}
-
+	@Override
+	public void addOrder(TOrder order) {
+		sessionFactory.getCurrentSession().persist(order);
+	}
+	@Override
+	public int findCountByUid(Integer uid) {
+		String hql = "from TOrder o where o.emailuser.userId = ?";
+		return sessionFactory.getCurrentSession().createQuery(hql).setParameter(0, uid).list().size();
+	}
+	@Override
+	public List<TOrder> findOrderByUid(int begin, int limit, Integer uid) {
+		String hql = "from TOrder o where o.emailuser.userId = ? order by orderTime desc";
+		List<TOrder> orderList = this.getHibernateTemplate().execute(new PageHibernateCallBack<TOrder>(hql, new Object[]{uid}, begin, limit));
+		if(orderList != null && orderList.size() > 0)
+			return orderList;
+		return null;
+	}
 }

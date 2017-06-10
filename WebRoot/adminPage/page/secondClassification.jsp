@@ -138,6 +138,8 @@ else
 			%>
 			<div class="main">
 			  <div align="center" style=" margin:20px;">
+			     
+			     <div style="margin:10px 130px;"><p align="left"><a href="category!showFirstCategory.action"><img title="返回一级分类" src="adminPage/images/return.png"/></a></p></div>
 			  	 <p align="center"><a href="secondCategory.action?firstType=${requestScope.firstType}"><img src="adminPage/images/add.png" title="添加类别"/></a></p>
 				 <table border ="1" cellspacing = "0" cellpadding = "0" align ="center" width = "80%">
                    <tr>

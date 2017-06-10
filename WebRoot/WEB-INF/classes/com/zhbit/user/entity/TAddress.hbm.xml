@@ -19,18 +19,8 @@
         <property name="address" type="java.lang.String">
             <column name="address" not-null="true" />
         </property>
-        <property name="postcode" type="java.lang.String">
-            <column name="postcode" not-null="true" />
-        </property>
-        
-        <many-to-one name="TEmailuser" class="com.zhbit.user.entity.TEmailuser" lazy="false" fetch="select" cascade="save-update">
-            <column name="userId" not-null="true" />
+        <many-to-one name="user" class="com.zhbit.user.entity.TEmailuser" lazy="false" fetch="select" cascade="none">
+         	<column name="userId" not-null="true" />
         </many-to-one>
-        <set name="TOrders" inverse="true" cascade="none">
-            <key>
-                <column name="addressId" not-null="true" />
-            </key>
-            <one-to-many class="com.zhbit.order.entity.TOrder" />
-        </set>
     </class>
 </hibernate-mapping>

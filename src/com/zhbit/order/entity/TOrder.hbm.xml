@@ -31,9 +31,6 @@
         <property name="receiver" type="java.lang.String">
             <column name="receiver" not-null="true" />
         </property>
-        <property name="postcode" type="java.lang.String">
-            <column name="postcode" not-null="true" />
-        </property>
         <many-to-one name="emailuser" class="com.zhbit.user.entity.TEmailuser" fetch="select" lazy="false">
             <column name="userId" not-null="true" />
         </many-to-one>

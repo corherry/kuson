@@ -9,11 +9,9 @@ import com.zhbit.util.PageBean;
 public interface AddressService {
 	
 	public void delete(TAddress address);
-	public Set<TAddress> queryByUserId(int userId);
-	public void add(TAddress address);
-	public void deleteByAddressId(Integer id);
+	public List<TAddress> queryByUserId(Integer userId);
 	public void update(TAddress address);
-	public int getAddressTotalPages(int pageSize, int userId);
 	public PageBean<TAddress> findAddressByUserId(Integer pageIndex, Integer userId);
 	public TAddress findByAddressId(Integer addressId);
+	public void addAddress(TAddress taddress);
 }

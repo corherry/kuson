@@ -384,6 +384,7 @@ else
 			</div>
 			<div class="main">
 			  <div align="center" style=" margin:20px;">
+			  	
 		 		 <table cellspacing = "0" cellpadding = "0" align ="center" width = "95%">
                    <c:forEach var = "order" items="${pageBean.list}">
                    	<tr >
@@ -422,18 +423,25 @@ ${order.phone}">${order.emailuser.username}&nbsp;&nbsp;<img src="userPage/images
                     </tr>
                    </c:forEach>
                  </table>
-                 <c:if test="${pageBean.totalPage > 0}">
+               	<br>
+               	 <c:if test="${pageBean.totalPage > 0}">
  				 <a href="order!findOrderByStatus.action?pageIndex=1&status=${requestScope.status}">首页</a>
 				 <a href="order!findOrderByStatus.action?pageIndex=${pageBean.pageIndex-1}&status=${requestScope.status}">上一页</a>
 				 <a href="order!findOrderByStatus.action?pageIndex=${pageBean.pageIndex+1}&status=${requestScope.status}">下一页</a>
 				 <a href="order!findOrderByStatus.action?pageIndex=${pageBean.totalPage}&status=${requestScope.status}">末页</a>
 				 (${pageBean.pageIndex}/${pageBean.totalPage})
 				 </c:if>
-               </div>   
-			</div>
-		</div>
+               	<br>
+               	<br>
+               	<br>
+               	</div>
+                </div>
+                </div>
+                </div>
+                
+                
+	<div class="bottom">
 	</div>
-	<div class="bottom"></div>
 	<div id="footer">
 		<p>
 			Copyright© 2017 版权所有 Company name All rights reserved.酷森服装</a>

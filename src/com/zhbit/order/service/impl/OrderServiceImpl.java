@@ -58,4 +58,40 @@ public class OrderServiceImpl implements OrderService {
 		orderDao.update(order);
 		
 	}
+
+	@Override
+	public void addOrder(TOrder order) {
+		orderDao.addOrder(order);
+		
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED)
+	public PageBean<TOrder> findOrderByUid(Integer uid, Integer pageIndex) {
+		PageBean<TOrder> pageBean = new PageBean<TOrder>();
+		int limit = 5;
+		int totalCount = orderDao.findCountByUid(uid);
+		int totalPage = 0;
+		if (totalCount % limit == 0) {
+			totalPage = totalCount / limit;
+		} else {
+			totalPage = totalCount / limit + 1;
+		}
+		if(pageIndex == null || pageIndex < 1)
+			pageIndex = 1;
+		if(totalCount == 0)
+			pageIndex = 0;
+		if(pageIndex > totalPage)
+			pageIndex = totalPage;
+		pageBean.setLimit(limit);
+		pageBean.setTotalCount(totalCount);
+		pageBean.setPageIndex(pageIndex);
+		pageBean.setTotalPage(totalPage);
+		int begin = (pageIndex - 1) * limit;
+		List<TOrder> orderList = null;
+		if(begin >= 0)
+			orderList = orderDao.findOrderByUid(begin, limit, uid);
+		pageBean.setList(orderList);
+		return pageBean;
+	}
 }

@@ -1,35 +1,25 @@
 package com.zhbit.user.service.impl;
 
 import java.util.List;
-import java.util.Set;
-
 import javax.annotation.Resource;
-
-import com.zhbit.admin.entity.TAdminInfo;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import com.zhbit.user.dao.AddressDao;
 import com.zhbit.user.entity.TAddress;
 import com.zhbit.user.service.AddressService;
 import com.zhbit.util.PageBean;
-
+@Transactional
 public class AddressServiceImpl implements AddressService {
 
 	@Resource
 	private AddressDao addressDao;
 	
-	@Override
-	public void add(TAddress address) {
-		addressDao.add(address);
-	}
 
 	@Override
 	public void delete(TAddress address) {
 		addressDao.delete(address);
 	}
-	
-	@Override
-	public void deleteByAddressId(Integer id){
-		addressDao.deleteByAddressId(id);
-	}
+
 
 	@Override
 	public void update(TAddress address) {
@@ -37,17 +27,10 @@ public class AddressServiceImpl implements AddressService {
 	}
 	
 	@Override
-	public int getAddressTotalPages(int pageSize, int userId) {
-		int count = addressDao.findCount(userId); //×Ü¼ÇÂ¼Êý
-    	int totalpages = 0; 
-    	totalpages =(count % pageSize ==0) ? (count / pageSize):(count / pageSize + 1);
-    	return totalpages;
-	}
-	
-	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public PageBean<TAddress> findAddressByUserId(Integer pageIndex, Integer userId) {
 		PageBean<TAddress> pageBean = new PageBean<TAddress>();
-		int limit = 10;
+		int limit = 4;
 		int totalCount = addressDao.findCount(userId);
 		int totalPage = 0;
 		if (totalCount % limit == 0) {
@@ -74,13 +57,22 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED)
 	public TAddress findByAddressId(Integer addressId){
 		return addressDao.findByAddressId(addressId);
 	}
 	
 	@Override
-	public Set<TAddress> queryByUserId(int userId) {
+	@Transactional(propagation=Propagation.NOT_SUPPORTED)
+	public List<TAddress> queryByUserId(Integer userId) {
 		return addressDao.queryByUserId(userId);
+	}
+
+
+	@Override
+	public void addAddress(TAddress taddress) {
+		addressDao.addAddress(taddress);
+		
 	}
 
 

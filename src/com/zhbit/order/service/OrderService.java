@@ -11,4 +11,6 @@ public interface OrderService {
 	public PageBean<TOrder> findOrderByStatus(Integer status, Integer pageIndex);
 	public TOrder findOrderByOid(Integer oid);
 	public void update(TOrder order);
+	public void addOrder(TOrder order);
+	public PageBean<TOrder> findOrderByUid(Integer uid, Integer pageIndex);
 }

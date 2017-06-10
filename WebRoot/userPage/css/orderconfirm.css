@@ -771,5 +771,24 @@ input[type=text]:focus,textarea:focus {
 .unable-buy .promo div {
 	display:none
 }
+.btn-go1 {
+	width:125px;
+	height:36px;
+	position:absolute;
+	right:-1px;
+	bottom:-35px;
+	_right:-2px;
+	_bottom:-36px;
+	font:700 18px/36px arial
+}
+.btn-go1 b {
+	background:url(../images/pay.png) no-repeat scroll 0 1px transparent;
+	width:127px;
+	height:36px;
+	float:left;
+	position:absolute;
+	top:0;
+	left:0
+}
 
 

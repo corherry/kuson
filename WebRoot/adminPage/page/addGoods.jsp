@@ -128,7 +128,15 @@
 						<s:file name="upload" label="商品图片"></s:file>
 						<s:textfield name="goods.goodsNo" label="商品编号"></s:textfield>
 						<s:textfield name="goods.goodsTitle" label="商品标题"></s:textfield>
-						<s:textfield name="goods.goodsPrice" label="商品价格"></s:textfield>
+						<s:textfield name="goods.goodsPrice" label="商品价格" onkeyup="javascript:CheckInputIntFloat(this);"></s:textfield>
+						<script type="text/javascript">
+    						function CheckInputIntFloat(oInput) 
+							{ 
+								if('' != oInput.value.replace(/\d{1,}\.{0,1}\d{0,}/,'')) { 
+									oInput.value = oInput.value.match(/\d{1,}\.{0,1}\d{0,}/) == null ? '' :oInput.value.match(/\d{1,}\.{0,1}\d{0,}/); 
+								} 
+							}
+    					</script>
 						<s:textfield name="goods.goodsSize" label="商品尺寸"></s:textfield>
 						<s:textfield name="goods.goodsColor" label="商品颜色"></s:textfield>
 						<s:textfield name="goods.goodsAmount" label="商品库存"></s:textfield>

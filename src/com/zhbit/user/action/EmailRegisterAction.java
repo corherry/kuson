@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.jboss.cache.StringFqn;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.zhbit.util.SendEmail;
 import com.zhbit.user.entity.TEmailuser;
@@ -24,9 +25,9 @@ public class EmailRegisterAction extends ActionSupport{
 		TEmailuser emailuser = new TEmailuser(user.getUsername(), MD5Util.encode2hex(user.getPassword()), user.getEmail(), 0, MD5Util.encode2hex(user.getEmail()), new Timestamp((new Date()).getTime()));
 		TEmailuser existingUser = userService.findByEmail(user.getEmail());
 		if(existingUser != null){
-			System.out.println("email is existing");
 			return INPUT;
 		}else{
+			ActionContext.getContext().getSession().remove("checkEmail");
 			userService.addEmailUser(emailuser);
 			StringBuffer content = new StringBuffer(emailuser.getEmail());
 			content.append(",ฤ๚บร:");

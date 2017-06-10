@@ -51,8 +51,8 @@
 	<bean id="Category" class="com.zhbit.category.action.CategoryAction" scope="prototype"></bean>
 	<bean id="SecondCategory" class="com.zhbit.category.action.CategoryAction" scope="prototype"></bean>
 	<bean id="indexAction" class="com.zhbit.index.action.IndexAction" scope="prototype"></bean>
-	<bean id="addAddress" class="com.zhbit.user.action.addAddressAction" scope="prototype"></bean>
 	<bean id="userLogin" class="com.zhbit.user.action.LoginAction" scope="prototype"></bean>
+	<bean id="addressAction" class="com.zhbit.user.action.AddressAction" scope="prototype"></bean>
 	<bean id="addressService" class="com.zhbit.user.service.impl.AddressServiceImpl"></bean>
 	<bean id="addressDao" class="com.zhbit.user.dao.impl.AddressDaoImpl">
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
@@ -65,4 +65,6 @@
 	<bean id="orderDao" class="com.zhbit.order.dao.impl.OrderDaoImpl">
 		<property name="hibernateTemplate" ref="hibernateTemplate" />
 	</bean>
+	<bean id="userAction" class="com.zhbit.user.action.UserAction" scope="prototype"></bean>
+	<bean id="userResetPwd" class="com.zhbit.user.action.ResetPassword" scope="prototype"></bean>
 </beans>

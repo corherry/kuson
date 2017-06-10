@@ -25,17 +25,6 @@ public class CartAction extends ActionSupport {
 	private GoodsService goodsService;
 	@Resource
 	private CartItemService cartItemService;
-	public Integer getPid() {
-		return pid;
-	}
-
-	public void setPid(Integer pid) {
-		this.pid = pid;
-	}
-
-	public Integer getQuantity() {
-		return quantity;
-	}
 
 	// 接收商品pid
 	private Integer pid;
@@ -133,6 +122,17 @@ public class CartAction extends ActionSupport {
 
 	public void setInputStream(InputStream inputStream) {
 		this.inputStream = inputStream;
+	}
+	public Integer getPid() {
+		return pid;
+	}
+
+	public void setPid(Integer pid) {
+		this.pid = pid;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
 	}
 
 }

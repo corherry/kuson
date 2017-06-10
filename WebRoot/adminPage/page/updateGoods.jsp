@@ -118,14 +118,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="main">
 				<div align="center" style=" margin:20px; line-height:28px;">
-					<s:form action="goods_show!updateGoods.action" method="post" namespace="/" enctype="multipart/form-data">
+					<s:form action="goods_update!updateGoods.action" method="post" namespace="/" enctype="multipart/form-data">
 						<s:hidden name="goods.goodsId" value="%{#session.goods.goodsId}"></s:hidden>
 						<img width=120px; src="adminPage/images/<s:property value="goods.goodsPicUrl" />" />
 						<s:hidden name="goods.goodsPicUrl" value="%{#session.goods.goodsPicUrl}"></s:hidden>
 						<s:file name="upload" label="商品图片" value="%{#session.goods.goodsPicUrl}"></s:file>
     					<s:textfield name="goods.goodsNo" label="商品编号" value="%{#session.goods.goodsNo}"></s:textfield>
     					<s:textfield name="goods.goodsTitle" label="商品标题" value="%{#session.goods.goodsTitle}"></s:textfield>
-    					<s:textfield name="goods.goodsPrice" label="商品价格" value="%{#session.goods.goodsPrice}"></s:textfield>
+    					<s:textfield name="goods.goodsPrice" label="商品价格" value="%{#session.goods.goodsPrice}" onkeyup="javascript:CheckInputIntFloat(this);"></s:textfield>
+    					<script type="text/javascript">
+    						function CheckInputIntFloat(oInput) 
+							{ 
+								if('' != oInput.value.replace(/\d{1,}\.{0,1}\d{0,}/,'')) { 
+									oInput.value = oInput.value.match(/\d{1,}\.{0,1}\d{0,}/) == null ? '' :oInput.value.match(/\d{1,}\.{0,1}\d{0,}/); 
+								} 
+							}
+    					</script>
     					<s:textfield name="goods.goodsSize" label="商品尺寸" value="%{#session.goods.goodsSize}"></s:textfield>
     					<s:textfield name="goods.goodsColor" label="商品颜色" value="%{#session.goods.goodsColor}"></s:textfield>
     					<s:textfield name="goods.goodsAmount" label="商品库存" value="%{#session.goods.goodsAmount}"></s:textfield>

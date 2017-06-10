@@ -21,7 +21,6 @@ public class TOrder implements java.io.Serializable {
 	private String address;
 	private String phone;
 	private String receiver;
-	private String postcode;
 	private Set<TOrderItem> orderItems = new HashSet<TOrderItem>();
 
 	// Constructors
@@ -32,7 +31,7 @@ public class TOrder implements java.io.Serializable {
 
 	/** minimal constructor */
 	public TOrder(Integer orderId, TEmailuser TEmailuser, String orderNo, Timestamp orderTime, Double total,
-			String address, String phone, String receiver, String postcode) {
+			String address, String phone, String receiver) {
 		this.orderId = orderId;
 		this.setEmailuser(TEmailuser);
 		this.orderNo = orderNo;
@@ -41,12 +40,11 @@ public class TOrder implements java.io.Serializable {
 		this.address = address;
 		this.phone = phone;
 		this.receiver = receiver;
-		this.postcode = postcode;
 	}
 
 	/** full constructor */
 	public TOrder(Integer orderId, TEmailuser TEmailuser, String orderNo, Integer status, Timestamp orderTime,
-			Double total, String address, String phone, String receiver, String postcode, Set TOrderItems) {
+			Double total, String address, String phone, String receiver, Set TOrderItems) {
 		this.orderId = orderId;
 		this.setEmailuser(TEmailuser);
 		this.orderNo = orderNo;
@@ -56,7 +54,6 @@ public class TOrder implements java.io.Serializable {
 		this.address = address;
 		this.phone = phone;
 		this.receiver = receiver;
-		this.postcode = postcode;
 		this.setOrderItems(TOrderItems);
 	}
 
@@ -124,14 +121,6 @@ public class TOrder implements java.io.Serializable {
 
 	public void setReceiver(String receiver) {
 		this.receiver = receiver;
-	}
-
-	public String getPostcode() {
-		return this.postcode;
-	}
-
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
 	}
 
 	public Set<TOrderItem> getOrderItems() {

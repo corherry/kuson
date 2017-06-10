@@ -85,20 +85,25 @@ public class GoodsAction extends ActionSupport implements Preparable{
 		return SUCCESS;
 	}
 	public String addGoods() throws Exception{
-		String path = ServletActionContext.getServletContext().getRealPath(this.getSavePath()) + "\\" + this.getUploadFileName();
-		goods.setGoodsPicUrl(this.uploadFileName);
-		File target = new File(path);
-		copy(this.upload, target);
+		if(upload == null){
+			goods.setGoodsPicUrl("nopicture.png");
+		}else{
+			String path = ServletActionContext.getServletContext().getRealPath(this.getSavePath()) + "\\" + this.getUploadFileName();
+			goods.setGoodsPicUrl(this.uploadFileName);
+			File target = new File(path);
+			copy(this.upload, target);
+		}
 		type = goodsService.findTypeBytid(typeId);
 		goods.setTType(type);
 		goodsService.add(goods);
 		return execute();
 	}
 	public void validateAddGoods() {
-		String regex = "^[0-9]";
+		String regex = "[0-9]{1,}";
+
 		if (goods.getGoodsNo() == null || goods.getGoodsNo().length() == 0) {
 			this.addFieldError("goods.goodsNo", "必填");
-		}else if(Pattern.matches(regex, goods.getGoodsNo()) == false){
+		}else if(!goods.getGoodsNo().matches(regex)){
 			this.addFieldError("goods.goodsNo", "商品编号只能包含数字");
 		}
 		if (goods.getGoodsTitle() == null || goods.getGoodsTitle().length() == 0) {
@@ -144,6 +149,28 @@ public class GoodsAction extends ActionSupport implements Preparable{
 		goodsService.update(goods);
 		return execute();
 	}
+	public void validateUpdateGoods() {
+		String regex = "[0-9]{1,}";
+		if (goods.getGoodsNo() == null || goods.getGoodsNo().length() == 0) {
+			this.addFieldError("goods.goodsNo", "必填");
+		}else if(!goods.getGoodsNo().matches(regex)){
+			this.addFieldError("goods.goodsNo", "商品编号只能包含数字");
+		}
+		if (goods.getGoodsTitle() == null || goods.getGoodsTitle().length() == 0) {
+			this.addFieldError("goods.goodsTitle", "必填");
+		}
+		if(goods.getGoodsPrice() == null){
+			this.addFieldError("goods.goodsPrice", "必填");
+		}
+		if(goods.getGoodsSize() == null || goods.getGoodsSize().length() == 0){
+			this.addFieldError("goods.goodsSize", "必填");
+		}
+		if(goods.getGoodsColor() == null || goods.getGoodsColor().length() == 0){
+			this.addFieldError("goods.goodsColor", "必填");
+		}
+	}
+	
+	
 	public String delete() throws Exception{
 		goods = goodsService.findByGoodsId(goodsId);
 		goodsService.delete(goods);
@@ -151,7 +178,7 @@ public class GoodsAction extends ActionSupport implements Preparable{
 	}
 	public String findByFirstCategory() throws Exception{
 		List<TGoods> goodsList = goodsService.findByFirstCategory(firstCategory);
-		ActionContext.getContext().put("goodsList", goodsList);
+		ActionContext.getContext().getSession().put("goodsList", goodsList);
 		return "firstCategory";
 	}
 	

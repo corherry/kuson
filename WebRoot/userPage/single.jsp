@@ -49,12 +49,18 @@
 		<div class="container">
 			<ul>
 				<li>Hi,欢迎来到酷森旗舰店</li>
-				<li><a href="#" data-toggle="modal" data-target="#myModal402"><span
-						class="glyphicon glyphicon-time" aria-hidden="true"></span>请登录</a></li>
-				<li><a href="#" data-toggle="modal" data-target="#myModal401"><span
-						class="glyphicon glyphicon-envelope" aria-hidden="true"></span>免费注册</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-off"
-						aria-hidden="true"></span>退出</a></li>
+				<c:if test="${user.username==null}">
+					<li><a href="#" data-toggle="modal" data-target="#myModal402"><span
+							class="glyphicon glyphicon-time" aria-hidden="true"></span>请登录</a></li>
+					<li><a href="#" data-toggle="modal" data-target="#myModal401"><span
+							class="glyphicon glyphicon-envelope" aria-hidden="true"></span>免费注册</a></li>
+				</c:if>
+				<c:if test="${user.username!=null}">
+					<li>欢迎您：</li>
+					<li><s:property value="#session.user.username"></s:property></li>
+					<li><a href="../user_login!logout.action"><span
+							class="glyphicon glyphicon-time" aria-hidden="true"></span>退出</a></li>
+				</c:if>
 			</ul>
 		</div>
 	</div>
@@ -68,32 +74,15 @@
 				</h1>
 			</div>
 			<div class="col-md-6 header-middle">
-				<form>
-					<div class="search">
-						<input type="search" value="Search" onFocus="this.value = '';"
-							onBlur="if (this.value == '') {this.value = 'Search';}" required>
-					</div>
-					<div class="section_room">
-						<select id="country" onChange="change_country(this.value)"
-							class="frm-field required">
-							<option value="null">全品类</option>
-							<option value="null">男装</option>
-							<option value="AX">女装</option>
-							<option value="AX">童装</option>
-							<option value="AX">户外</option>
-							<option value="AX">内衣</option>
-						</select>
-					</div>
-					<div class="sear-sub">
-						<input type="submit" value=" ">
-					</div>
-					<div class="clearfix"></div>
-				</form>
 			</div>
 			<div class="col-md-3 header-right footer-bottom">
 				<ul>
-					<li><a href="#" class="use1" data-toggle="modal"
-						data-target="#myModal401"><span>个人中心</span></a></li>
+					<c:if test="${user.username!=null}">
+					<li><a href="personal.jsp" class="use1"><span>Manage</span></a></li>
+					</c:if>
+					<c:if test="${user.username==null}">
+					<li><a href="login.jsp" class="use1"><span>Manage</span></a></li>
+					</c:if>
 					<li><a class="fb" href="#"></a></li>
 					<li><a class="twi" href="#"></a></li>
 					<li><a class="insta" href="#"></a></li>
@@ -389,33 +378,39 @@
 						<div class="login">
 							<div class="login-bottom">
 								<h3>免费注册</h3>
-								<form>
+								<form  action="../user_register!register.action" onsubmit="return check()">
+									<div class="sign-up">
+
+										<h4>
+											<img class="img1" src="images/person07.png" />
+										</h4>
+										<input  type="text" name="user.username" value="姓名" id="username"
+											onFocus="this.value = '';"
+											onBlur="if (this.value == '') {this.value = '姓名';}" style="color:#858585;" required>
+									</div>
 									<div class="sign-up">
 
 										<h4>
 											<img class="img1" src="images/envelope.png" />
 										</h4>
-										<input type="text" value="邮箱" onFocus="this.value = '';"
-											onBlur="if (this.value == '') {this.value = '邮箱';}" required>
+										<input type="text" name="user.email" value="邮箱" id="email"
+											onFocus="this.value = '';"
+											onBlur="if (this.value == '') {this.value = '邮箱';}" style="color:#858585;" required>
 									</div>
 									<div class="sign-up">
 										<h4>
 											<img class="img1" src="images/password05.png" />
 										</h4>
-										<input type="password" value="Password"
-											onFocus="this.value = '';"
-											onBlur="if (this.value == '') {this.value = 'Password';}"
-											required>
+										<input type="password" name="user.password" value=""  id="password"
+											onFocus="this.value = '';" style="color:#858585;" required>
 
 									</div>
 									<div class="sign-up">
 										<h4>
 											<img class="img1" src="images/password06.png" />
 										</h4>
-										<input type="password" value="Password"
-											onFocus="this.value = '';"
-											onBlur="if (this.value == '') {this.value = 'Password';}"
-											required>
+										<input type="password" name="rePassword" value="" id="repassword"
+											onFocus="this.value = '';" style="color:#858585;" required>
 
 									</div>
 									<div class="sign-up">
@@ -425,6 +420,35 @@
 								</form>
 							</div>
 							<div class="clearfix"></div>
+							<script type="text/javascript">
+								function check(){
+								    var name= document.getElementById("username");
+								    var email = document.getElementById("email");
+									var psw = document.getElementById("password");
+									var repass = document.getElementById("repassword");
+									var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+									if(email.value=="邮箱"){
+									   alert("邮箱不能为空!");
+									   return false;
+									}else if(myreg.test(email.value) == false){
+										alert("请输入正确的邮箱");
+										return false;
+									}else if(name.value=="姓名"){
+									  alert("姓名不能为空！");
+									  return false;
+									}else if(psw.value==""){
+										alert("密码不能为空!");
+										return false;
+									}else if(repass.value==""){
+										alert("请再次输入确认密码!");
+										return false;
+									}else if(psw.value != repass.value){
+										alert("密码不匹配!");
+										return false;
+									}
+									return true;
+								}
+							</script>
 						</div>
 					</div>
 				</div>
@@ -447,30 +471,27 @@
 					<div class="login-grids">
 						<div class="login">
 							<div class="login-right">
-								<h3>密码登录</h3>
-								<form>
-									<div class="sign-in">
-										<img class="img1" src="images/envelope.png" /> <input
-											type="text" value="邮箱" onFocus="this.value = '';"
-											onBlur="if (this.value == '') {this.value = '邮箱';}" required>
+								<h3>用户登陆</h3>
+								
+								<s:form  action="../user_login!login.action" method="post"
+									theme="simple" namespace="/">
+									<div class="sign-up">
+										<h4>
+											<img class="img1" src="images/envelope.png" />
+										</h4>
+										<s:textfield name="user.email" label="邮箱" style="color:#858585;" />
 									</div>
-									<div class="sign-in">
+									<div class="sign-up">
 										<h4>
 											<img class="img1" src="images/password05.png" />
 										</h4>
-										<input type="password" value="Password"
-											onFocus="this.value = '';"
-											onBlur="if (this.value == '') {this.value = 'Password';}"
-											required> <a href="#">忘记密码?</a>
+										<s:password name="user.password" label="密码" style="color:#858585;" />
 									</div>
-									<div class="single-bottom">
-										<input type="checkbox" id="brand" value=""> <label
-											for="brand"><span></span>记住密码.</label>
+									
+									<div class="sign-up">
+										<s:submit value="登陆" />
 									</div>
-									<div class="sign-in">
-										<input type="submit" value="登录">
-									</div>
-								</form>
+								</s:form>
 							</div>
 							<div class="clearfix"></div>
 						</div>
