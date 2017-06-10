@@ -115,6 +115,15 @@ public class GoodsDaoImpl extends HibernateDaoSupport implements GoodsDao{
 		List<TGoods> goodsInfoList = sessionFactory.getCurrentSession().createQuery(hql).setParameter(0, goodsNo).list();
 		return goodsInfoList;
 	}
+	@Override
+	public List<TGoods> queryBySearch(String search) {
+		String hql = "from TGoods where goodsTitle like :search";
+		List<TGoods> goodsList = sessionFactory.getCurrentSession().createQuery(hql).setString("search", "%"+search+"%").list();
+		if(goodsList != null && goodsList.size() > 0){
+			return goodsList;
+		}
+		return null;
+	}
 
 
 }

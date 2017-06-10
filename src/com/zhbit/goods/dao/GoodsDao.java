@@ -24,4 +24,5 @@ public interface GoodsDao {
 	public List<Category> categoryInfo();
 	public TType findTypeBytid(Integer typeId);
 	public List<TGoods> findByGoodsNo(String goodsNo);
+	public List<TGoods> queryBySearch(String search);
 }

@@ -165,7 +165,7 @@ label{
     width: 33%;	
 }
 .sear-sub{
-    float: right;
+    float: left;
     width: 10%;		
 }
 .header-middle {
@@ -2838,10 +2838,6 @@ td.invert-image a img {
 }
 .checkout-right-basket{
 	float: left;
-    margin: 8em 0 0 0em;
-}
-.checkout-right-basket1{
-	float: right;
     margin: 8em 0 0 0em;
 }
 .checkout-left-basket ul li span {

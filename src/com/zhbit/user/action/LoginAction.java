@@ -19,7 +19,6 @@ public class LoginAction extends ActionSupport{
 		if(emailuser != null){
 			if(emailuser.getStatus() == 1){
 				user.setPassword(MD5Util.encode2hex(user.getPassword()));
-				System.out.println(MD5Util.encode2hex(user.getPassword()));
 				emailuser = userService.checkEmailUser(user);
 				if(emailuser != null){
 					this.setUser(emailuser);

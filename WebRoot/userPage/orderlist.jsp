@@ -295,7 +295,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<h1><a href="index.html"><img src="images/logo-kuson01.png"></a></h1>
 	  </div>
 		<div class="col-md-6 header-middle">
-			
+			<s:form action="../goods_show!queryBySearch.action" method="post" namespace="/">
+				<div class="search">
+					<input type="search" name="search" value="Search" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'Search';}" required>
+				</div>
+				<div class="sear-sub">
+					<input type="submit" value="">
+				</div>
+				<div class="clearfix"></div>
+			</s:form>
 		</div>
 		<div class="col-md-3 header-right footer-bottom">
 			<ul>
@@ -464,7 +472,7 @@ ${order.phone}">${order.emailuser.username}&nbsp;&nbsp;<img
 												<c:when test="${order.status==0}">
 													<font color="green" style="font-weight: 500; font-family: "SimHei">&nbsp;&nbsp;未付款</font>
 													<br>
-													<span class="button blue medium">付款</span>
+													<a href="../order!pay.action?orderId=${order.orderId}"><span class="button blue medium">付款</span></a>
 												</c:when>
 												<c:when test="${order.status==1}">
 													<span class="button blue medium">已付款</span>
@@ -473,7 +481,7 @@ ${order.phone}">${order.emailuser.username}&nbsp;&nbsp;<img
 													<font color="green" style="font-weight: 500; font-family: "SimHei">&nbsp;&nbsp;&nbsp;&nbsp;已发货</font>
 													<br>
 													<a
-														href="../userOrder!changeStatus.action?status=3&orderId=${order.orderId}"><span
+														href="../order!comfirm.action?orderId=${order.orderId}"><span
 														class="button rosy medium">确认收货</span></a>
 												</c:when>
 												<c:when test="${order.status==3}">

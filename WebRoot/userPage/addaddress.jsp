@@ -62,7 +62,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<h1><a href="index.html"><img src="images/logo-kuson01.png"></a></h1>
 	  </div>
 		<div class="col-md-6 header-middle">
-			
+			<s:form action="../goods_show!queryBySearch.action" method="post" namespace="/">
+				<div class="search">
+					<input type="search" name="search" value="Search" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'Search';}" required>
+				</div>
+				<div class="sear-sub">
+					<input type="submit" value="">
+				</div>
+				<div class="clearfix"></div>
+			</s:form>
 		</div>
 		<div class="col-md-3 header-right footer-bottom">
 			<ul>

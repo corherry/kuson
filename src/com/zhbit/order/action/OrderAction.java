@@ -63,6 +63,18 @@ public class OrderAction extends ActionSupport {
 		orderService.update(order);
 		return "cancel";
 	}
+	public String pay() throws Exception{
+		TOrder order = orderService.findOrderByOid(orderId);
+		order.setStatus(1);
+		orderService.update(order);
+		return findOrderByUid();
+	}
+	public String comfirm() throws Exception{
+		TOrder order = orderService.findOrderByOid(orderId);
+		order.setStatus(3);
+		orderService.update(order);
+		return findOrderByUid();
+	}
 	public String addOrder() throws Exception{
 		TEmailuser user = (TEmailuser)ActionContext.getContext().getSession().get("user");
 		Cart cart = (Cart)ActionContext.getContext().getSession().get("cart");
@@ -104,7 +116,6 @@ public class OrderAction extends ActionSupport {
 		TOrder order = orderService.findOrderByOid(orderId);
 		if(MD5Util.encode2hex(password).equals(user.getPassword()) == true){
 			if(user.getMoney() >= order.getTotal()){
-				System.out.println(order.getTotal());
 				user.setMoney(user.getMoney() - order.getTotal());
 				userService.updateEmailUser(user);
 				order.setStatus(1);

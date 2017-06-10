@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <c:if test="${payMessage != null}">
           <img alt="" src="images/error1.png">&nbsp;<b> ${payMessage} </b>
           </c:if>
-          <a href="index.action">返回首页</a>
+          <a href="../index.action">返回首页</a>
        </div>
     </div>
   </body>

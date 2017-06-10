@@ -118,5 +118,10 @@ public class GoodsServiceImpl implements GoodsService {
 		return goodsDao.findByGoodsNo(goodsNo);
 	}
 
+	@Override
+	public List<TGoods> queryBySearch(String search) {
+		return goodsDao.queryBySearch(search);
+	}
+
 
 }

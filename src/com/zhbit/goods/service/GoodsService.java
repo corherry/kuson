@@ -23,4 +23,5 @@ public interface GoodsService {
 	public void update(TGoods goods);
 	public List<TGoods> queryByType(String type);
 	public TType findTypeBytid(Integer typeId);
+	public List<TGoods> queryBySearch(String search);
 }

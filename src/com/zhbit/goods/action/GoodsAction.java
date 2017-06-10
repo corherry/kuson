@@ -40,6 +40,7 @@ public class GoodsAction extends ActionSupport implements Preparable{
 	private String category;
 	private Integer typeId;
 	private String goodsNo;
+	private String search;
 	public String getGoodsNo() {
 		return goodsNo;
 	}
@@ -99,12 +100,11 @@ public class GoodsAction extends ActionSupport implements Preparable{
 		return execute();
 	}
 	public void validateAddGoods() {
-		String regex = "[0-9]{1,}";
-
+		String regex = "[0-9a-zA-Z]{1,}";
 		if (goods.getGoodsNo() == null || goods.getGoodsNo().length() == 0) {
 			this.addFieldError("goods.goodsNo", "必填");
 		}else if(!goods.getGoodsNo().matches(regex)){
-			this.addFieldError("goods.goodsNo", "商品编号只能包含数字");
+			this.addFieldError("goods.goodsNo", "商品编号只能包含数字和字母");
 		}
 		if (goods.getGoodsTitle() == null || goods.getGoodsTitle().length() == 0) {
 			this.addFieldError("goods.goodsTitle", "必填");
@@ -150,11 +150,11 @@ public class GoodsAction extends ActionSupport implements Preparable{
 		return execute();
 	}
 	public void validateUpdateGoods() {
-		String regex = "[0-9]{1,}";
+		String regex = "[0-9a-zA-Z]{1,}";
 		if (goods.getGoodsNo() == null || goods.getGoodsNo().length() == 0) {
 			this.addFieldError("goods.goodsNo", "必填");
 		}else if(!goods.getGoodsNo().matches(regex)){
-			this.addFieldError("goods.goodsNo", "商品编号只能包含数字");
+			this.addFieldError("goods.goodsNo", "商品编号只能包含数字和字母");
 		}
 		if (goods.getGoodsTitle() == null || goods.getGoodsTitle().length() == 0) {
 			this.addFieldError("goods.goodsTitle", "必填");
@@ -204,7 +204,11 @@ public class GoodsAction extends ActionSupport implements Preparable{
 		ActionContext.getContext().getSession().put("categoryList", categoryList);
 		return "category";
 	}
-	
+	public String queryBySearch() throws Exception{
+		List<TGoods> goodsList = goodsService.queryBySearch(search);
+		ActionContext.getContext().getSession().put("goodsList", goodsList);
+		return "search";
+	}
 	public void prepare() throws Exception {
 		clearErrorsAndMessages();
 	}
@@ -273,5 +277,11 @@ public class GoodsAction extends ActionSupport implements Preparable{
 	}
 	public void setTypeId(Integer typeId) {
 		this.typeId = typeId;
+	}
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
 	}
 }
