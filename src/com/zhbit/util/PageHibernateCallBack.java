@@ -11,7 +11,7 @@ public class PageHibernateCallBack<T> implements HibernateCallback<List<T>> {
 
 	private String hql;// hql查询语句
 	private Object[] params;// 参数
-	private int startIndex;// 其实位置
+	private int startIndex;// 起始位置
 	private int pageSize;// 每页显示个数
 
 	public PageHibernateCallBack(String hql, Object[] params, int startIndex, int pageSize) {
@@ -22,7 +22,7 @@ public class PageHibernateCallBack<T> implements HibernateCallback<List<T>> {
 		this.pageSize = pageSize;
 	}
 
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public List<T> doInHibernate(Session session) throws HibernateException {
 		Query query = session.createQuery(hql);

@@ -15,6 +15,8 @@ public class CartItemServiceImpl implements CartItemService {
 		double total = 0.00;
 		for(CartItem temp : cart.getCartItems()) {
 			if(temp.getProduct().getGoodsId().equals(cartItem.getProduct().getGoodsId())) {
+				if(cartItem.getCount() > cartItem.getProduct().getGoodsAmount())
+					cartItem.setCount(cartItem.getProduct().getGoodsAmount());
 				temp.setCount(cartItem.getCount());
 			}
 			total += temp.getProduct().getGoodsPrice() * temp.getCount();

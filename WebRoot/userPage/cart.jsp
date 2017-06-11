@@ -149,7 +149,7 @@
 									<ul class="dropdown-menu multi-column columns-3">
 										<div class="row">
 											<div class="col-sm-6 multi-gd-img1 multi-gd-text ">
-												<a href="mens.html"><img src="images/woo1.jpg" alt=" " /></a>
+												<a href="../goods_show!findByFirstCategory.action?firstCategory=${firstCategory}"><img src="images/woo1.jpg" alt=" " /></a>
 											</div>
 											<div class="col-sm-3 multi-gd-img" style="float:right;">
 												<ul class="multi-column-dropdown">
@@ -319,6 +319,7 @@
 			</div>
 			<div class="checkout-left">			   
 				<a href="../index.action"><img title="继续购物" src="images/returnshopping1.png"></a>
+				<s:if test="#session.cart.total>0">
 				<div class="checkout-left-basket animated wow slideInLeft"
 					data-wow-delay=".5s">
 					<h4>购物清单</h4>
@@ -334,12 +335,10 @@
 				<div class="clearfix"></div>
 				<div class="checkout-right-basket animated wow slideInRight"
 					data-wow-delay=".5s" style="float:right;">
-					   
-					<%-- <a href="../index.action"><span
-						class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>继&nbsp;续&nbsp;购&nbsp;物</a> --%>
 						<a href="../address!queryByUserId.action" target="_blank">结&nbsp;&nbsp;算&nbsp;&nbsp;中&nbsp;&nbsp;心&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
 						class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
 				</div>
+				</s:if>
 			</div>
 		</div>
 		<script type="text/javascript">
@@ -376,7 +375,6 @@
 				 		var price = ($(this).parent().parent().parent().prev().html()*quantity).toFixed(2);
 						$(this).parent().parent().parent().next().html(price); 
 					} else {
-						alert("fuck");
 						//如果非法，还原为刚刚合法的数
 						this.value = $(this).attr("lang");
 					}
@@ -394,7 +392,7 @@
 			<div class="col-md-3 footer-left">
 
 				<h2>
-					<a href="index.html"><img src="images/logo-kuson02.gif" alt=" " /></a>
+					<a href="#"><img src="images/logo-kuson02.gif" alt=" " /></a>
 				</h2>
 				<p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit
 					amet, consectetur, adipisci velit, sed quia non numquam eius modi
@@ -407,34 +405,34 @@
 					<div class="col-md-4 sign-gd">
 						<h4>常用服务</h4>
 						<ul>
-							<li><a href="index.html">问题咨询</a></li>
-							<li><a href="index.html">订单查询</a></li>
-							<li><a href="index.html">保修退换货</a></li>
-							<li><a href="index.html">上门安装</a></li>
-							<li><a href="index.html">上门自提</a></li>
-							<li><a href="index.html">价格保护</a></li>
+							<li><a href="#">问题咨询</a></li>
+							<li><a href="#">订单查询</a></li>
+							<li><a href="#">保修退换货</a></li>
+							<li><a href="#">上门安装</a></li>
+							<li><a href="#">上门自提</a></li>
+							<li><a href="#">价格保护</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4 sign-gd">
 						<h4>购物联盟</h4>
 						<ul>
-							<li><a href="index.html">怎么购物</a></li>
-							<li><a href="mens.html">积分查询</a></li>
-							<li><a href="womens.html">礼品卡介绍</a></li>
-							<li><a href="electronics.html">积分兑换</a></li>
-							<li><a href="codes.html">礼品卡使用</a></li>
-							<li><a href="contact.html">积分换大奖</a></li>
+							<li><a href="#">怎么购物</a></li>
+							<li><a href="#">积分查询</a></li>
+							<li><a href="#">礼品卡介绍</a></li>
+							<li><a href="#">积分兑换</a></li>
+							<li><a href="#">礼品卡使用</a></li>
+							<li><a href="#">积分换大奖</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4 sign-gd">
 						<h4>售后服务</h4>
 						<ul>
-							<li><a href="index.html">退换货流程</a></li>
-							<li><a href="mens.html">售后服务政策</a></li>
-							<li><a href="womens.html">特色服务指南</a></li>
-							<li><a href="electronics.html">发票说明</a></li>
-							<li><a href="codes.html">正品鉴定</a></li>
-							<li><a href="contact.html">权益保障</a></li>
+							<li><a href="#">退换货流程</a></li>
+							<li><a href="#">售后服务政策</a></li>
+							<li><a href="#">特色服务指南</a></li>
+							<li><a href="#">发票说明</a></li>
+							<li><a href="#">正品鉴定</a></li>
+							<li><a href="#">权益保障</a></li>
 						</ul>
 					</div>
 					<div class="clearfix"></div>

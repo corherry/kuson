@@ -203,7 +203,7 @@ else
 												<a href="../order!cancelOrder.action?orderId=${order.orderId}" class="back J_MakePoint" target="_top" data-point-url="">取消订单</a>
 											          支付密码：<input type="password" name="password" style="height:25px" id="psw"> 
 											          
-											  <a id="J_Go" class=" btn-go" data-point-url="" tabindex="0" title="点击此按钮，提交订单。" href="JavaScript:;"
+											  <a id="J_Go" class=" btn-go1" data-point-url="" tabindex="0" title="点击此按钮，进行付款。" href="JavaScript:;"
 						onclick="location='../order!payOrder.action?orderId=${order.orderId}&password=' + document.getElementById('psw').value">付款<b class="dpl-button"></b></a>
 											</div>
 										</div>										

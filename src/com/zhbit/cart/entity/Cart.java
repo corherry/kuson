@@ -42,12 +42,16 @@ public class Cart {
 		Integer pid = cartItem.getProduct().getGoodsId();
 		if (cartMap.containsKey(pid)) {
 			CartItem _cartItem = cartMap.get(pid);
-			_cartItem.setCount(_cartItem.getCount() + cartItem.getCount());
+			if(_cartItem.getCount() + cartItem.getCount() > cartItem.getProduct().getGoodsAmount()){
+				cartItem.setSubtotal((cartItem.getProduct().getGoodsAmount() - _cartItem.getCount()) * cartItem.getProduct().getGoodsPrice());
+				_cartItem.setCount(cartItem.getProduct().getGoodsAmount());
+			}
+			else
+				_cartItem.setCount(_cartItem.getCount() + cartItem.getCount());
 
 		} else {
 			cartMap.put(pid, cartItem);
 		}
-		;
 		total += cartItem.getSubtotal();
 	}
 

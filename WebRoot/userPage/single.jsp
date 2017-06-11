@@ -134,7 +134,7 @@
 									<ul class="dropdown-menu multi-column columns-3">
 										<div class="row">
 											<div class="col-sm-6 multi-gd-img1 multi-gd-text ">
-												<a href="mens.html"><img src="images/woo1.jpg" alt=" " /></a>
+												<a href="../goods_show!findByFirstCategory.action?firstCategory=${firstCategory}"><img src="images/woo1.jpg" alt=" " /></a>
 											</div>
 											<div class="col-sm-3 multi-gd-img" style="float:right;">
 												<ul class="multi-column-dropdown">
@@ -237,7 +237,7 @@
 						<div class="quantity-select">
 							<div class="entry value-minus">&nbsp;</div>
 							<input type="text" value="1" name="quantity" id="quantity"
-								style="height: 40px;width: 50px;text-align: center">
+								style="height: 40px;width: 50px;text-align: center" lang="${productInfo.goodsAmount}" class="text">
 							<div class="entry value-plus active">&nbsp;</div>
 							<font color="#909090" size="4">(&nbsp;库存<s:property
 									value="#session.productInfo.goodsAmount"></s:property>件&nbsp;)
@@ -261,7 +261,34 @@
 							if(value>=1) count.value=value;
 							else count.value=1;
 						});
+						
 					</script>
+					<script type="text/javascript">
+		
+			$(function() {
+				//1. 注册事件
+				$(".text").change(function() {
+					//2. 验证数据的有效性
+					var count = this;
+					var quantity = this.value; //也可以使用$(this).val();
+					if(isNaN(quantity) == true){
+						quantity=1;
+						this.value=1;
+					}
+					//isNaN(number)表示若number不是数字就返回真
+					if (!isNaN(quantity) && parseInt(quantity) == quantity && quantity > 0) {
+						if(quantity > parseInt($(this).attr("lang"))){
+						
+							quantity = parseInt($(this).attr("lang"))
+							this.value=quantity;
+						}
+					} else {
+						//如果非法，还原为刚刚合法的数
+						this.value = $(this).attr("lang");
+					}
+				})
+			})
+		</script>
 					<!--quantity-->
 					<div class="clearfix"></div>
 				</div>
@@ -319,7 +346,7 @@
 			<div class="col-md-3 footer-left">
 
 				<h2>
-					<a href="index.html"><img src="images/logo-kuson02.gif" alt=" " /></a>
+					<a href="#"><img src="images/logo-kuson02.gif" alt=" " /></a>
 				</h2>
 				<p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit
 					amet, consectetur, adipisci velit, sed quia non numquam eius modi
@@ -332,34 +359,34 @@
 					<div class="col-md-4 sign-gd">
 						<h4>常用服务</h4>
 						<ul>
-							<li><a href="index.html">问题咨询</a></li>
-							<li><a href="index.html">订单查询</a></li>
-							<li><a href="index.html">保修退换货</a></li>
-							<li><a href="index.html">上门安装</a></li>
-							<li><a href="index.html">上门自提</a></li>
-							<li><a href="index.html">价格保护</a></li>
+							<li><a href="#">问题咨询</a></li>
+							<li><a href="#">订单查询</a></li>
+							<li><a href="#">保修退换货</a></li>
+							<li><a href="#">上门安装</a></li>
+							<li><a href="#">上门自提</a></li>
+							<li><a href="#">价格保护</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4 sign-gd">
 						<h4>购物联盟</h4>
 						<ul>
-							<li><a href="index.html">怎么购物</a></li>
-							<li><a href="mens.html">积分查询</a></li>
-							<li><a href="womens.html">礼品卡介绍</a></li>
-							<li><a href="electronics.html">积分兑换</a></li>
-							<li><a href="codes.html">礼品卡使用</a></li>
-							<li><a href="contact.html">积分换大奖</a></li>
+							<li><a href="#">怎么购物</a></li>
+							<li><a href="#">积分查询</a></li>
+							<li><a href="#">礼品卡介绍</a></li>
+							<li><a href="#">积分兑换</a></li>
+							<li><a href="#">礼品卡使用</a></li>
+							<li><a href="#">积分换大奖</a></li>
 						</ul>
 					</div>
 					<div class="col-md-4 sign-gd">
 						<h4>售后服务</h4>
 						<ul>
-							<li><a href="index.html">退换货流程</a></li>
-							<li><a href="mens.html">售后服务政策</a></li>
-							<li><a href="womens.html">特色服务指南</a></li>
-							<li><a href="electronics.html">发票说明</a></li>
-							<li><a href="codes.html">正品鉴定</a></li>
-							<li><a href="contact.html">权益保障</a></li>
+							<li><a href="#">退换货流程</a></li>
+							<li><a href="#">售后服务政策</a></li>
+							<li><a href="#">特色服务指南</a></li>
+							<li><a href="#">发票说明</a></li>
+							<li><a href="#">正品鉴定</a></li>
+							<li><a href="#">权益保障</a></li>
 						</ul>
 					</div>
 					<div class="clearfix"></div>

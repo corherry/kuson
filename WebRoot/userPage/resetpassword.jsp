@@ -123,7 +123,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<ul class="dropdown-menu multi-column columns-3">
 										<div class="row">
 											<div class="col-sm-6 multi-gd-img1 multi-gd-text ">
-												<a href="mens.html"><img src="images/woo1.jpg" alt=" " /></a>
+												<a href="../goods_show!findByFirstCategory.action?firstCategory=${firstCategory}"><img src="images/woo1.jpg" alt=" " /></a>
 											</div>
 											<div class="col-sm-3 multi-gd-img" style="float:right;">
 												<ul class="multi-column-dropdown">
@@ -239,60 +239,65 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- //mens -->
 <!-- footer -->
 <div class="footer">
-	<div class="container">
-        <div><img src="images/tail.png"/></div>
-	  <div class="col-md-3 footer-left">
-            
-		<h2><a href="index.html"><img src="images/logo-kuson02.gif" alt=" " /></a></h2>
-			<p>Neque porro quisquam est, qui dolorem ipsum quia dolor
-			sit amet, consectetur, adipisci velit, sed quia non 
-			numquam eius modi tempora incidunt ut labore 
-			et dolore magnam aliquam quaerat voluptatem.</p>
-		</div>
-		<div class="col-md-9 footer-right">
-			<div class="clearfix"></div>
-			<div class="sign-grds">
-				<div class="col-md-4 sign-gd">
-					<h4>常用服务</h4>
-					<ul>
-						<li><a href="index.html">问题咨询</a></li>
-						<li><a href="index.html">订单查询</a></li>
-						<li><a href="index.html">保修退换货</a></li>
-						<li><a href="index.html">上门安装</a></li>
-						<li><a href="index.html">上门自提</a></li>
-						<li><a href="index.html">价格保护</a></li>
-					</ul>
-				</div>
-                <div class="col-md-4 sign-gd">
-					<h4>购物联盟</h4>
-					<ul>
-						<li><a href="index.html">怎么购物</a></li>
-						<li><a href="mens.html">积分查询</a></li>
-						<li><a href="womens.html">礼品卡介绍</a></li>
-						<li><a href="electronics.html">积分兑换</a></li>
-						<li><a href="codes.html">礼品卡使用</a></li>
-						<li><a href="contact.html">积分换大奖</a></li>
-					</ul>
-				</div>
-                <div class="col-md-4 sign-gd">
-					<h4>售后服务</h4>
-					<ul>
-						<li><a href="index.html">退换货流程</a></li>
-						<li><a href="mens.html">售后服务政策</a></li>
-						<li><a href="womens.html">特色服务指南</a></li>
-						<li><a href="electronics.html">发票说明</a></li>
-						<li><a href="codes.html">正品鉴定</a></li>
-						<li><a href="contact.html">权益保障</a></li>
-					</ul>
-				</div>
+		<div class="container">
+			<div>
+				<img src="images/tail.png" />
+			</div>
+			<div class="col-md-3 footer-left">
+
+				<h2>
+					<a href="#"><img src="images/logo-kuson02.gif" alt=" " /></a>
+				</h2>
+				<p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+					amet, consectetur, adipisci velit, sed quia non numquam eius modi
+					tempora incidunt ut labore et dolore magnam aliquam quaerat
+					voluptatem.</p>
+			</div>
+			<div class="col-md-9 footer-right">
 				<div class="clearfix"></div>
-		  </div>
-	  </div>
-		<div class="clearfix"></div>
-		<p class="copy-right">Copyright &copy; 2017.Company name All rights reserved.酷森服装</p>
+				<div class="sign-grds">
+					<div class="col-md-4 sign-gd">
+						<h4>常用服务</h4>
+						<ul>
+							<li><a href="#">问题咨询</a></li>
+							<li><a href="#">订单查询</a></li>
+							<li><a href="#">保修退换货</a></li>
+							<li><a href="#">上门安装</a></li>
+							<li><a href="#">上门自提</a></li>
+							<li><a href="#">价格保护</a></li>
+						</ul>
+					</div>
+					<div class="col-md-4 sign-gd">
+						<h4>购物联盟</h4>
+						<ul>
+							<li><a href="#">怎么购物</a></li>
+							<li><a href="#">积分查询</a></li>
+							<li><a href="#">礼品卡介绍</a></li>
+							<li><a href="#">积分兑换</a></li>
+							<li><a href="#">礼品卡使用</a></li>
+							<li><a href="#">积分换大奖</a></li>
+						</ul>
+					</div>
+					<div class="col-md-4 sign-gd">
+						<h4>售后服务</h4>
+						<ul>
+							<li><a href="#">退换货流程</a></li>
+							<li><a href="#">售后服务政策</a></li>
+							<li><a href="#">特色服务指南</a></li>
+							<li><a href="#">发票说明</a></li>
+							<li><a href="#">正品鉴定</a></li>
+							<li><a href="#">权益保障</a></li>
+						</ul>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<p class="copy-right">Copyright &copy; 2017.Company name All
+				rights reserved.酷森服装</p>
+		</div>
 	</div>
-</div>
-<!-- //footer -->
+	<!-- //footer -->
 <!-- login -->
 			<div class="modal fade" id="myModal401" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
